@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<body>
+
+  <head>
+    <link rel="stylesheet" href="{% static 'MainSite/game_page.css' %}">
+  </head>
+
+  <br>
+  <hr>
+  <br>
+  <p class="gameInfoHeader"><div class="turn_ident">White's Turn</div><div>White's Points: <div class="white_point_counter">0</div></div><div>Black's Points: <div class="black_point_counter">0</div></div></p>
+  
+  <br>
+  <hr>
+  <br>
+
+  <table>
+    <tr class="row_0">
+      <th class="column_0 row_0 white_space"><div onclick="pieceToMove('black rook 0')" class="black rook 0">&#9820</div></th>
+      <th class="column_1 row_0 black_space"><div onclick="pieceToMove('black knight 0')" class="black knight 0">&#9822</div></th>
+      <th class="column_2 row_0 white_space"><div onclick="pieceToMove('black bishop 0')" class="black bishop 0">&#9821</div></th>
+      <th class="column_3 row_0 black_space"><div onclick="pieceToMove('black queen 0')" class="black queen 0">&#9819</div></th>
+      <th class="column_4 row_0 white_space"><div onclick="pieceToMove('black king 0')" class="black king 0">&#9818</div></th>
+      <th class="column_5 row_0 black_space"><div onclick="pieceToMove('black bishop 1')" class="black bishop 1">&#9821</div></th>
+      <th class="column_6 row_0 white_space"><div onclick="pieceToMove('black knight 1')" class="black knight 1">&#9822</div></th>
+      <th class="column_7 row_0 black_space"><div onclick="pieceToMove('black rook 1')" class="black rook 1">&#9820</div></th>
+    </tr>
+
+    <tr class="row_1">
+      <th class="column_0 row_1 black_space"><div onclick="pieceToMove('black pawn 0')" class="black pawn 0">&#9823</div></th>
+      <th class="column_1 row_1 white_space"><div onclick="pieceToMove('black pawn 1')" class="black pawn 1">&#9823</div></th>
+      <th class="column_2 row_1 black_space"><div onclick="pieceToMove('black pawn 2')" class="black pawn 2">&#9823</div></th>
+      <th class="column_3 row_1 white_space"><div onclick="pieceToMove('black pawn 3')" class="black pawn 3">&#9823</div></th>
+      <th class="column_4 row_1 black_space"><div onclick="pieceToMove('black pawn 4')" class="black pawn 4">&#9823</div></th>
+      <th class="column_5 row_1 white_space"><div onclick="pieceToMove('black pawn 5')" class="black pawn 5">&#9823</div></th>
+      <th class="column_6 row_1 black_space"><div onclick="pieceToMove('black pawn 6')" class="black pawn 6">&#9823</div></th>
+      <th class="column_7 row_1 white_space"><div onclick="pieceToMove('black pawn 7')" class="black pawn 7">&#9823</div></th>
+    </tr>
+
+    <tr class="row_2">
+      <th class="column_0 row_2 white_space" onclick="whereToMove({class: 'column_0 row_2 white_space', x: 0, y: 2})"></th>
+      <th class="column_1 row_2 black_space" onclick="whereToMove({class: 'column_1 row_2 black_space', x: 1, y: 2})"></th>
+      <th class="column_2 row_2 white_space" onclick="whereToMove({class: 'column_2 row_2 white_space', x: 2, y: 2})"></th>
+      <th class="column_3 row_2 black_space" onclick="whereToMove({class: 'column_3 row_2 black_space', x: 3, y: 2})"></th>
+      <th class="column_4 row_2 white_space" onclick="whereToMove({class: 'column_4 row_2 white_space', x: 4, y: 2})"></th>
+      <th class="column_5 row_2 black_space" onclick="whereToMove({class: 'column_5 row_2 black_space', x: 5, y: 2})"></th>
+      <th class="column_6 row_2 white_space" onclick="whereToMove({class: 'column_6 row_2 white_space', x: 6, y: 2})"></th>
+      <th class="column_7 row_2 black_space" onclick="whereToMove({class: 'column_7 row_2 black_space', x: 7, y: 2})"></th>
+    </tr>
+  
+    <tr class="row_3">
+      <th class="column_0 row_3 black_space" onclick="whereToMove({class: 'column_0 row_3 black_space', x: 0, y: 3})"></th>
+      <th class="column_1 row_3 white_space" onclick="whereToMove({class: 'column_1 row_3 white_space', x: 1, y: 3})"></th>
+      <th class="column_2 row_3 black_space" onclick="whereToMove({class: 'column_2 row_3 black_space', x: 2, y: 3})"></th>
+      <th class="column_3 row_3 white_space" onclick="whereToMove({class: 'column_3 row_3 white_space', x: 3, y: 3})"></th>
+      <th class="column_4 row_3 black_space" onclick="whereToMove({class: 'column_4 row_3 black_space', x: 4, y: 3})"></th>
+      <th class="column_5 row_3 white_space" onclick="whereToMove({class: 'column_5 row_3 white_space', x: 5, y: 3})"></th>
+      <th class="column_6 row_3 black_space" onclick="whereToMove({class: 'column_6 row_3 black_space', x: 6, y: 3})"></th>
+      <th class="column_7 row_3 white_space" onclick="whereToMove({class: 'column_7 row_3 white_space', x: 7, y: 3})"></th>
+    </tr>
+
+    <tr class="row_4">
+      <th class="column_0 row_4 white_space" onclick="whereToMove({class: 'column_0 row_4 white_space', x: 0, y: 4})"></th>
+      <th class="column_1 row_4 black_space" onclick="whereToMove({class: 'column_1 row_4 black_space', x: 1, y: 4})"></th>
+      <th class="column_2 row_4 white_space" onclick="whereToMove({class: 'column_2 row_4 white_space', x: 2, y: 4})"></th>
+      <th class="column_3 row_4 black_space" onclick="whereToMove({class: 'column_3 row_4 black_space', x: 3, y: 4})"></th>
+      <th class="column_4 row_4 white_space" onclick="whereToMove({class: 'column_4 row_4 white_space', x: 4, y: 4})"></th>
+      <th class="column_5 row_4 black_space" onclick="whereToMove({class: 'column_5 row_4 black_space', x: 5, y: 4})"></th>
+      <th class="column_6 row_4 white_space" onclick="whereToMove({class: 'column_6 row_4 white_space', x: 6, y: 4})"></th>
+      <th class="column_7 row_4 black_space" onclick="whereToMove({class: 'column_7 row_4 black_space', x: 7, y: 4})"></th>
+    </tr>
+  
+    <tr class="row_5"> 
+      <th class="column_0 row_5 black_space" onclick="whereToMove({class: 'column_0 row_5 black_space', x: 0, y: 5})"></th>
+      <th class="column_1 row_5 white_space" onclick="whereToMove({class: 'column_1 row_5 white_space', x: 1, y: 5})"></th>
+      <th class="column_2 row_5 black_space" onclick="whereToMove({class: 'column_2 row_5 black_space', x: 2, y: 5})"></th>
+      <th class="column_3 row_5 white_space" onclick="whereToMove({class: 'column_3 row_5 white_space', x: 3, y: 5})"></th>
+      <th class="column_4 row_5 black_space" onclick="whereToMove({class: 'column_4 row_5 black_space', x: 4, y: 5})"></th>
+      <th class="column_5 row_5 white_space" onclick="whereToMove({class: 'column_5 row_5 white_space', x: 5, y: 5})"></th>
+      <th class="column_6 row_5 black_space" onclick="whereToMove({class: 'column_6 row_5 black_space', x: 6, y: 5})"></th>
+      <th class="column_7 row_5 white_space" onclick="whereToMove({class: 'column_7 row_5 white_space', x: 7, y: 5})"></th>
+    </tr>
+
+    <tr class="row_6">
+      <th class="column_0 row_6 white_space"><div class="white pawn 0" onclick="pieceToMove">&#9823</div></th>
+      <th class="column_1 row_6 black_space"><div class="white pawn 1" onclick="pieceToMove('white pawn 1')">&#9823</div></th>
+      <th class="column_2 row_6 white_space"><div class="white pawn 2" onclick="pieceToMove('white pawn 2')">&#9823</div></th>
+      <th class="column_3 row_6 black_space"><div class="white pawn 3" onclick="pieceToMove('white pawn 3')">&#9823</div></th>
+      <th class="column_4 row_6 white_space"><div class="white pawn 4" onclick="pieceToMove('white pawn 4')">&#9823</div></th>
+      <th class="column_5 row_6 black_space"><div class="white pawn 5" onclick="pieceToMove('white pawn 5')">&#9823</div></th>
+      <th class="column_6 row_6 white_space"><div class="white pawn 6" onclick="pieceToMove('white pawn 6')">&#9823</div></th>
+      <th class="column_7 row_6 black_space"><div class="white pawn 7" onclick="pieceToMove('white pawn 7')">&#9823</div></th>
+    </tr>
+
+    <tr class="row_7">
+      <th class="column_0 row_7 black_space"><div onclick="pieceToMove('white rook 0')" class="white rook 0">&#9820</div></th>
+      <th class="column_1 row_7 white_space"><div onclick="pieceToMove('white knight 0')" class="white knight 0">&#9822</div></th>
+      <th class="column_2 row_7 black_space"><div onclick="pieceToMove('white bishop 0')" class="white bishop 0">&#9821</div></th>
+      <th class="column_3 row_7 white_space"><div onclick="pieceToMove('white queen 0')" class="white queen 0">&#9819</div></th>
+      <th class="column_4 row_7 black_space"><div onclick="pieceToMove('white king 0')" class="white king 0">&#9818</div></th>
+      <th class="column_5 row_7 white_space"><div onclick="pieceToMove('white bishop 1')" class="white bishop 1">&#9821</div></th>
+      <th class="column_6 row_7 black_space"><div onclick="pieceToMove('white knight 1')" class="white knight 1">&#9822</div></th>
+      <th class="column_7 row_7 white_space"><div onclick="pieceToMove('white rook 1')" class="white rook 1">&#9820</div></th>
+    </tr>
+  </table>
+
+  <br><hr><br>
+
+  <button onclick='startGame()'>Start Game</button>
+
+  <script src="{% static 'MainSite/gamelogic.js' %}"></script>
+</body>

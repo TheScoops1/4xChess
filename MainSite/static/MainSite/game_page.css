@@ -1,0 +1,44 @@
+/* This is the css for the main chess board in game_page */
+table{
+  border: 10px solid;
+  margin: auto;
+  width: 70%;
+  height: 70%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+tr{
+  margin: 10px;
+  width: 800px;
+}
+th{
+  margin: 10px;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+}
+.white_space{
+  background-color: white;
+}
+.black_space{
+  background-color: black;
+}
+.black {
+  color: green;
+  font-size: 550%
+}
+.white {
+  color: blue;
+  font-size: 550%
+}
+hr{
+  border: 7px solid #21fbfb;
+  border-radius: 8px;
+}
+.gameInfoHeader {
+  display: inline;
+}
+div {
+  display: inline;
+  margin: 15px
+}

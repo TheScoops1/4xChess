@@ -1,0 +1,25 @@
+/* This is the styling for the main heading aka h1 *//* This is the styling for the main heading aka h1 */
+h1{
+  color: #613780;
+  font-size: 250%;
+  margin: auto;
+  text-align: center; 
+}
+
+hr {
+  border: 7px solid #21fbfb;
+  border-radius: 8px;
+}
+a {
+  text-align: center;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 15px;
+  color: #613780;
+  font-size: 200%;
+}
+.links {
+  text-align: center;
+  margin: auto;
+}
