@@ -41,6 +41,12 @@ def account_creation_url(request):
 
 
 def account_login(request):
+    context = {}
+    context["form"] = AccountLoginForm()
+    return render(request, "MainSite/login_page.html", context)
+
+
+def session_token_generation(request):
     if request.method == "POST":
         form = AccountLoginForm(request.POST)
 
@@ -50,5 +56,3 @@ def account_login(request):
             login_check = True
             for data_point in form_data:
                 print(data_point)
-
-    return render(request, "MainSite/account_creation.html")
