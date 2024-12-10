@@ -39,7 +39,9 @@ class GameSession(models.Model):
 class LoginSession(models.Model):
     # session_id is a UUID6
     session_id = models.CharField(max_length=50)
-    uid_for_session = models.IntegerField(db_default=0)
+    user_id = models.CharField(db_default=0, max_length=50)
     last_activity_tracker = models.DateTimeField(" last activity")
     date_created = models.DateTimeField("date created")
-    date_time_deleted = models.DateTimeField("date time deleted")
+    date_time_deleted = models.DateTimeField(
+        "date time deleted", db_default=datetime.datetime.now()
+    )

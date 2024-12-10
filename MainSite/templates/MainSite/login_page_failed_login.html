@@ -1,0 +1,12 @@
+
+
+<p>this is the Login Page</p>
+
+<p>The username or password you enter didnt match up to our records, Please try again.</p>
+<form action="/login_check/" method="post">
+  {% csrf_token %}
+  {{form }}
+
+  <br>
+  <input type="submit" value="Submit">
+  </form>

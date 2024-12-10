@@ -3,10 +3,14 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("game_page/", views.game_page, name="game_page"),
     path("account_creation/", views.account_creator_page, name="account_creation"),
     path("create_account/", views.account_creation_url, name="account_creator"),
     path("account_login/", views.account_login, name="account_login"),
-    path("login_success/", views.)
-    path("", views.main_page, name="main_page"),
+    path("account_login/login_check", views.account_login_check, name="login_success"),
+    path("<str:session_token>/", views.main_page, name="login_success"),
+    path("<str:session_token>/game_page/", views.game_page, name="game_page"),
+    path(
+        "<str:session_token>/account_settings/", views.main_page, name="login_success"
+    ),
+    path("", views.landing_page, name="landing_page"),
 ]

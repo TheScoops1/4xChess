@@ -1,0 +1,15 @@
+
+<p>this is the Account creation page</p>
+
+<p>The user name you just used does not exist. Please try again.</p>
+
+
+
+
+<form action="/create_account/" method="post">
+  {% csrf_token %}
+  {{form }}
+
+  <br>
+  <input type="submit" value="Submit">
+  </form>
