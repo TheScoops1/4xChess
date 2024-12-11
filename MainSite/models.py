@@ -24,15 +24,22 @@ class AccountInfo(models.Model):
 
 class GameSession(models.Model):
     game_board = models.JSONField()
-    game_session_json = models.CharField(max_length=1000)
-    last_player = models.IntegerField()
+    last_player = models.IntegerField(db_default=0)
     player_zero_points = models.IntegerField(db_default=0)
     player_one_points = models.IntegerField(db_default=0)
     # session_id is a UUID6
     game_session_id = models.CharField(max_length=10, db_default=uuid6.uuid6())
-    date_time_deleted = models.DateTimeField("date time deleted")
+    date_time_deleted = models.DateTimeField(
+        "date time deleted", db_default=datetime.datetime.now()
+    )
     last_activity = models.DateTimeField(
         "last activity", db_default=datetime.datetime.now()
+    )
+    date_time_created = models.DateTimeField(
+        "date time created", db_default=datetime.datetime.now()
+    )
+    date_time_ended = models.DateTimeField(
+        "date time ended", db_default=datetime.datetime.now()
     )
 
 
@@ -40,8 +47,12 @@ class LoginSession(models.Model):
     # session_id is a UUID6
     session_id = models.CharField(max_length=50)
     user_id = models.CharField(db_default=0, max_length=50)
-    last_activity_tracker = models.DateTimeField(" last activity")
-    date_created = models.DateTimeField("date created")
+    last_activity_tracker = models.DateTimeField(
+        " last activity", db_default=datetime.datetime.now()
+    )
+    date_time_created = models.DateTimeField(
+        "date created", db_default=datetime.datetime.now()
+    )
     date_time_deleted = models.DateTimeField(
         "date time deleted", db_default=datetime.datetime.now()
     )

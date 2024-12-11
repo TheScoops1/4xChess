@@ -7,9 +7,10 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
+# importing the forms for any user input
 from .forms import AccountCreationForm, AccountLoginForm
 
-# Create your views here.
+# importing the databse models
 from .models import LoginSession, GameSession, AccountInfo
 
 
@@ -21,14 +22,17 @@ def landing_page(request):
     return render(request, "MainSite/main_page.html")
 
 
-def game_page(request):
+def game_page(request, session_token):
+    new_game = GameSession()
     return render(request, "MainSite/game_page.html")
 
 
 def account_creator_page(request):
     context = {}
     context["form"] = AccountCreationForm()
-    return render(request, "MainSite/account_creation.html", context)
+    return render(
+        request, "MainSite/AccountCreationFiles/account_creation.html", context
+    )
 
 
 def account_creation_url(request):
@@ -45,13 +49,14 @@ def account_creation_url(request):
             print(new_account.user_name, new_account.email, new_account.password)
             new_account.save()
 
-    return render(request, "MainSite/account_created.html")
+    # return HttpResponseRedirect(reverse('account_login', args=()))
+    return render(request, "MainSite/AccountCreationFiles/account_created.html")
 
 
 def account_login(request):
     context = {}
     context["form"] = AccountLoginForm()
-    return render(request, "MainSite/login_page.html", context)
+    return render(request, "MainSite/LoginFiles/login_page.html", context)
 
 
 def account_login_check(request):
@@ -78,22 +83,18 @@ def account_login_check(request):
                         reverse("login_success", args=(new_session.session_id,))
                     )
             except exception as e:
-                return render(request, "MainSite/login_page_failed_login.html", context)
+                return render(
+                    request,
+                    "MainSite/LoginFiles/login_page_failed_login.html",
+                    context,
+                )
             else:
-                return render(request, "MainSite/login_page_failed_login.html", context)
+                return render(
+                    request,
+                    "MainSite/LoginFiles/login_page_failed_login.html",
+                    context,
+                )
 
 
-def session_token_generation(request, session_token):
-    if request.method == "POST":
-        form = AccountLoginForm(request.POST)
-        print(session_token)
-        print(form)
-        if form.is_valid():
-            form_data = form.cleaned_data
-            login_check = True
-
-            for data_point in form_data:
-                print("\n" + data_point)
-                print(form_data[data_point])
-                if data_point == "user_name":
-                    print(AccountInfo.objects.get(user_name=form_data["user_name"]))
+def game_board_update(request):
+    pass
