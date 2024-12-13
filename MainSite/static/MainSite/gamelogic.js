@@ -174,6 +174,7 @@ function startGame() {
       game_board.push(board_position);
     }
   }
+  console.log(game_board)
 }
 
 function checkPossibleMove() {

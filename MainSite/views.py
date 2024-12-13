@@ -97,4 +97,5 @@ def account_login_check(request):
 
 
 def game_board_update(request):
+    game_to_update = GameSession.objects.all()
     pass
