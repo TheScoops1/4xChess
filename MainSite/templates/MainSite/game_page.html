@@ -109,6 +109,14 @@
   <br><hr><br>
 
   <button onclick='startGame()'>Start Game</button>
+  
+  <hr>
+  <p>{{session_token}}</p>
+  <button onclick='sendMoveToDB("{{ session_token }}")'>Test Button</button>
+
+  
+  <hr>
+  <button onclick='test()'>Test Button</button>
 
   <script src="{% static 'MainSite/gamelogic.js' %}"></script>
 </body>

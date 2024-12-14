@@ -177,8 +177,48 @@ function startGame() {
   console.log(game_board)
 }
 
-function checkPossibleMove() {
+function getCookie(name) {
+  console.log('test cookie token function')
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  console.log(cookieValue)
+  return cookieValue;
+}
 
+async function sendMoveToDB(session_token) {
+  try {
+    console.log(session_token);
+    console.log(game_board);
+    console.log(JSON.stringify(game_board))
+    const response = await fetch('/' + String(session_token) + '/test/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(game_board)
+      });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data.test, ' Test was succesful');
+
+  } catch (error) {
+    console.log('Error:', error);
+  }
 }
 
 function pieceToMove(nameOfPiece) {

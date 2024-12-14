@@ -2,9 +2,17 @@ from sys import exception
 from passlib.hash import pbkdf2_sha256
 import uuid6
 import datetime
+import json
 
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import (
+    HttpResponse,
+    HttpResponseBase,
+    HttpResponseRedirect,
+    JsonResponse,
+)
 from django.urls import reverse
 
 # importing the forms for any user input
@@ -24,7 +32,8 @@ def landing_page(request):
 
 def game_page(request, session_token):
     new_game = GameSession()
-    return render(request, "MainSite/game_page.html")
+    context = {"session_token": session_token}
+    return render(request, "MainSite/game_page.html", context)
 
 
 def account_creator_page(request):
@@ -99,3 +108,10 @@ def account_login_check(request):
 def game_board_update(request):
     game_to_update = GameSession.objects.all()
     pass
+
+
+@csrf_protect
+@require_http_methods(["POST"])
+def test(request, session_token):
+    print(json.loads(request.body))
+    return JsonResponse({"status": "poggers"}, status=200)
