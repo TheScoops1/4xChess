@@ -14,6 +14,11 @@ urlpatterns = [
     ),
     path("<uuid:session_token>/test/", views.test, name="ajaxtest"),
     path(
+        "<uuid:session_token>/gather_game_session/",
+        views.test_get_game_session_info,
+        name="gather_game_session",
+    ),
+    path(
         "<uuid:session_token>/<str:game_board>/",
         views.game_board_update,
         name="game_board_update",

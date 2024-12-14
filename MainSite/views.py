@@ -114,4 +114,17 @@ def game_board_update(request):
 @require_http_methods(["POST"])
 def test(request, session_token):
     print(json.loads(request.body))
+    if request.body != []:
+        game_session = GameSession()
+        game_session.game_board = request.body[0]
+        game_session.player_login_session = session_token
+        game_session.save()
+    return JsonResponse({"status": "poggers"}, status=200)
+
+
+@require_http_methods(["GET"])
+def test_get_game_session_info(request, session_token):
+    current_game_session = GameSession.objects.get(player_login_session=session_token)
+    print(current_game_session)
+
     return JsonResponse({"status": "poggers"}, status=200)

@@ -221,6 +221,27 @@ async function sendMoveToDB(session_token) {
   }
 }
 
+async function testGatherGameSession(session_token) {
+  try {
+    const response = await fetch('/' + String(session_token) + '/gather_game_session/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data)
+  } catch (error) {
+    console.log('Error:', error);
+  }
+}
+
 function pieceToMove(nameOfPiece) {
   if (piece_to_move == null) {
     piece_to_move = game_pieces[nameOfPiece]

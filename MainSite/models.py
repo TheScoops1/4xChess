@@ -29,6 +29,7 @@ class GameSession(models.Model):
     player_one_points = models.IntegerField(db_default=0)
     # session_id is a UUID6
     game_session_id = models.CharField(max_length=10, db_default=uuid6.uuid6())
+    player_login_session = models.CharField(max_length=10, db_default=0)
     date_time_deleted = models.DateTimeField(
         "date time deleted", db_default=datetime.datetime.now()
     )
