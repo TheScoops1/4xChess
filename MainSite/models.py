@@ -23,7 +23,7 @@ class AccountInfo(models.Model):
 
 
 class GameSession(models.Model):
-    game_board = models.JSONField()
+    game_board = models.CharField(max_length=200)
     last_player = models.IntegerField(db_default=0)
     player_zero_points = models.IntegerField(db_default=0)
     player_one_points = models.IntegerField(db_default=0)

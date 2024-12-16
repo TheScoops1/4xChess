@@ -242,7 +242,30 @@ async function testGatherGameSession(session_token) {
   }
 }
 
-function pieceToMove(nameOfPiece) {
+async function updateGameBoard(session_token) {
+  try {
+    const response = await fetch('/' + String(session_token) + "/update_game_board/",
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(game_board)
+      });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data)
+  } catch (error) {
+    console.log('Error:', error);
+  }
+}
+
+function pieceToMove(nameOfPiece, session_token) {
   if (piece_to_move == null) {
     piece_to_move = game_pieces[nameOfPiece]
     if (turn_ident == true) {
@@ -259,11 +282,11 @@ function pieceToMove(nameOfPiece) {
   } else {
     piece_to_attack = game_pieces[nameOfPiece]
     console.log(piece_to_attack)
-    whereToMove({ class: "column_" + piece_to_attack.position.x + " row_" + piece_to_attack.position.y })
+    whereToMove({ class: "column_" + piece_to_attack.position.x + " row_" + piece_to_attack.position.y }, session_token)
   }
 }
 
-function whereToMove(spot_to_move_to) {
+function whereToMove(spot_to_move_to, session_token) {
 
   let piece_to_move_HTML_element = document.getElementsByClassName(piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count)[0]
   let spot_to_move_to_HTML_element = document.getElementsByClassName(spot_to_move_to.class)[0]
@@ -300,6 +323,8 @@ function whereToMove(spot_to_move_to) {
   }
 
   changeTitleHTML()
+
+  updateGameBoard(session_token)
 
 }
 

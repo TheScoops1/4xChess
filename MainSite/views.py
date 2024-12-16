@@ -105,8 +105,12 @@ def account_login_check(request):
                 )
 
 
-def game_board_update(request):
-    game_to_update = GameSession.objects.all()
+@csrf_protect
+@require_http_methods(["POST"])
+def game_board_update(request, session_token):
+    game_to_update = GameSession.objects.get(player_login_session=session_token)
+    game_to_update.game_board = json.loads(request.body)
+
     pass
 
 
@@ -116,7 +120,7 @@ def test(request, session_token):
     print(json.loads(request.body))
     if request.body != []:
         game_session = GameSession()
-        game_session.game_board = request.body[0]
+        game_session.game_board = json.loads(request.body)
         game_session.player_login_session = session_token
         game_session.save()
     return JsonResponse({"status": "poggers"}, status=200)
@@ -125,6 +129,8 @@ def test(request, session_token):
 @require_http_methods(["GET"])
 def test_get_game_session_info(request, session_token):
     current_game_session = GameSession.objects.get(player_login_session=session_token)
-    print(current_game_session)
+    print(current_game_session.game_board)
 
-    return JsonResponse({"status": "poggers"}, status=200)
+    return JsonResponse(
+        {"status": "poggers", "game_board": current_game_session.game_board}, status=200
+    )
