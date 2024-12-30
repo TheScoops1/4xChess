@@ -1,4 +1,7 @@
 /* This is the css for the main chess board in game_page */
+body {
+  background-color: Wheat;
+}
 table{
   border: 10px solid;
   margin: auto;
@@ -36,9 +39,19 @@ hr{
   border-radius: 8px;
 }
 .gameInfoHeader {
-  display: inline;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gameInfoDiv {
+  text-align: center;
 }
 div {
-  display: inline;
-  margin: 15px
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 25px;
+  margin-right: 25px;
+  align-items: center;
+  justify-content: center;
 }

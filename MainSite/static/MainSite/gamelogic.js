@@ -11,7 +11,7 @@ let turn_ident = true
 let whitePointCounter = 0
 let blackPointCounter = 0
 
-function startGame() {
+function startGame(session_token) {
 
   for (let i = 0; i < 2; i++) {
     for (let j = 0; j < 16; j++) {
@@ -175,11 +175,13 @@ function startGame() {
     }
   }
   console.log(game_board)
+  createGameSession(session_token)
 }
 
 function getCookie(name) {
   console.log('test cookie token function')
   let cookieValue = null;
+  console.log(document.cookie)
   if (document.cookie && document.cookie !== '') {
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
@@ -242,6 +244,28 @@ async function testGatherGameSession(session_token) {
   }
 }
 
+async function createGameSession(session_token) {
+  try {
+    const response = await fetch('/' + String(session_token) + '/create_game_session/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(game_pieces)
+      });
+    if (!response.ok) {
+      throw new Error('Network response was not okay');
+    }
+
+    const data = await response.json();
+    console.log(data)
+  } catch (error) {
+    console.log('Error:', error)
+  }
+}
+
 async function updateGameBoard(session_token) {
   try {
     const response = await fetch('/' + String(session_token) + "/update_game_board/",
@@ -251,7 +275,7 @@ async function updateGameBoard(session_token) {
           'Content-Type': 'application/json',
           'X-CSRFToken': getCookie('csrftoken')
         },
-        body: JSON.stringify(game_board)
+        body: JSON.stringify(game_pieces)
       });
 
     if (!response.ok) {
@@ -265,6 +289,13 @@ async function updateGameBoard(session_token) {
   }
 }
 
+function determineLegalMove(name_of_piece, start_position, end_position, attack) {
+  game_piece = game_pieces[name_of_piece]
+  if (name_of_piece.includes("pawn")) {
+    if (attack) {
+    }
+  }
+}
 function pieceToMove(nameOfPiece, session_token) {
   if (piece_to_move == null) {
     piece_to_move = game_pieces[nameOfPiece]
@@ -308,7 +339,7 @@ function whereToMove(spot_to_move_to, session_token) {
   let x_position_for_spot_moved_from = spot_moved_from_HTML_element.className[7]
   let y_spot_for_spot_moved_from = spot_moved_from_HTML_element.className[13]
 
-  spot_moved_from_HTML_element.onclick = function () { whereToMove({ 'class': class_name, 'x': Number(x_position_for_spot_moved_from), 'y': Number(y_spot_for_spot_moved_from) }) }
+  spot_moved_from_HTML_element.onclick = function () { whereToMove({ 'class': class_name, 'x': Number(x_position_for_spot_moved_from), 'y': Number(y_spot_for_spot_moved_from) }, session_token) }
   piece_to_move_HTML_element = null
 
   game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.x = spot_to_move_to.x
@@ -346,6 +377,5 @@ function changeTitleHTML() {
   white_point_counter_HTML_element = String(whitePointCounter)
   black_point_counter_HTML_element = String(blackPointCounter)
 }
-
 
 

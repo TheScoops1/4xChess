@@ -1,4 +1,7 @@
 /* This is the styling for the main heading aka h1 *//* This is the styling for the main heading aka h1 */
+body {
+  background-color: Wheat;
+}
 h1{
   color: #613780;
   font-size: 250%;
@@ -23,3 +26,4 @@ a {
   text-align: center;
   margin: auto;
 }
+

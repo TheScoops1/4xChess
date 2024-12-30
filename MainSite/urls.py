@@ -19,14 +19,14 @@ urlpatterns = [
         name="gather_game_session",
     ),
     path(
+        "<uuid:session_token>/create_game_session/",
+        views.game_board_create,
+        name="create_game_board",
+    ),
+    path(
         "<uuid:session_token>/update_game_board/",
         views.game_board_update,
         name="update_game_board",
-    ),
-    path(
-        "<uuid:session_token>/<str:game_board>/",
-        views.game_board_update,
-        name="game_board_update",
     ),
     path("", views.landing_page, name="landing_page"),
 ]

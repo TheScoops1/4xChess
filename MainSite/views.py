@@ -33,6 +33,7 @@ def landing_page(request):
 def game_page(request, session_token):
     new_game = GameSession()
     context = {"session_token": session_token}
+    new_game.save()
     return render(request, "MainSite/game_page.html", context)
 
 
@@ -107,11 +108,32 @@ def account_login_check(request):
 
 @csrf_protect
 @require_http_methods(["POST"])
-def game_board_update(request, session_token):
-    game_to_update = GameSession.objects.get(player_login_session=session_token)
-    game_to_update.game_board = json.loads(request.body)
+def game_board_create(request, session_token):
+    try:
+        game_to_create = GameSession()
+        game_to_create.game_pieces = json.loads(request.body)
+        game_to_create.player_login_session = session_token
+        game_to_create.save()
 
-    pass
+        return JsonResponse({"status": "game_session created"}, status=200)
+    except exception as e:
+        return JsonResponse({"status": "game_session was not created"}, status=500)
+
+
+@csrf_protect
+@require_http_methods(["POST"])
+def game_board_update(request, session_token):
+    try:
+        print(json.loads(request.body))
+        game_to_update = GameSession.objects.get(player_login_session=session_token)
+        game_to_update.game_pieces = json.loads(request.body)
+
+        game_to_update.save()
+
+        return JsonResponse({"status": "game_session updated"}, status=200)
+
+    except exception as e:
+        return JsonResponse({"status": "something fucked up XD"}, status=409)
 
 
 @csrf_protect
