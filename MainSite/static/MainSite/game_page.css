@@ -5,20 +5,18 @@ body {
 table{
   border: 10px solid;
   margin: auto;
-  width: 70%;
-  height: 70%;
   margin-top: auto;
   margin-bottom: auto;
 }
 tr{
   margin: 10px;
-  width: 800px;
 }
 th{
   margin: 10px;
   text-align: center;
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  max-width: 140px;
+  height: 140px;
 }
 .white_space{
   background-color: white;

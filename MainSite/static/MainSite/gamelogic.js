@@ -181,7 +181,6 @@ function startGame(session_token) {
 function getCookie(name) {
   console.log('test cookie token function')
   let cookieValue = null;
-  console.log(document.cookie)
   if (document.cookie && document.cookie !== '') {
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
@@ -196,6 +195,40 @@ function getCookie(name) {
   return cookieValue;
 }
 
+function checkLegalAtacck(pieceAttacking, pieceBeingAttacked, turnMarker) {
+}
+
+function checkLegalMove(piece_being_moved, turn_marker) {
+
+}
+
+function checkPossibleMoves(piece_to_check) {
+  let possible_moves_to_return = []
+  let current_location = piece_to_check.position
+  if (piece_to_check.piece == "rook") {
+    for (let i = 0; i < 7; i++) {
+      let new_x_position = current_location.x + 1
+      if (new_x_position > 8) {
+        new_x_position = new_x_position - 8
+      }
+      let new_y_position = current_location.y + 1
+      if (new_y_position > 8) {
+        new_y_position = new_y_position - 8
+      }
+      possible_moves_to_return.append({ x: new_x_position, y: current_location.y })
+      possible_moves_to_return.append({ x: current_location.x, y: new_y_position })
+    }
+  }
+  if (piece_to_check.piece == "bishop") {
+    for (let i = 0; i < 7; i++) {
+
+    }
+  }
+  if (piece_to_check.piece == "pawn") { }
+  if (piece_to_check.piece == "queen") { }
+  if (piece_to_check.piece == "king") { }
+  if (piece_to_check.piece == "knight") { }
+}
 async function sendMoveToDB(session_token) {
   try {
     console.log(session_token);
