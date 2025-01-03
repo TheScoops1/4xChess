@@ -276,7 +276,45 @@ function checkPossibleMoves(piece_to_check) {
         possible_moves_to_return.append({ x: current_location.x, y: new_y_position })
       }
     }
-    if (piece_to_check.piece == "queen") { }
+    if (piece_to_check.piece == "queen") {
+      let new_right_diagonal_x_position = current_location.x + 1
+      let new_right_diagonal_y_position = current_location.y + 1
+
+      let new_left_diagonal_x_position = current_location.x - 1
+      let new_left_diagonal_y_position = current_location.y + 1
+      let new_x_position = current_location.x + 1
+      if (new_x_position > 7) {
+        new_x_position = new_x_position - 8
+      }
+      let new_y_position = current_location.y + 1
+      if (new_y_position > 7) {
+        new_y_position = new_y_position - 8
+      }
+      possible_moves_to_return.append({ x: new_x_position, y: current_location.y })
+      possible_moves_to_return.append({ x: current_location.x, y: new_y_position })
+
+      if (new_right_diagonal_x_position > 7) {
+        new_right_diagonal_x_position = new_right_diagonal_x_position - 8
+      }
+      if (new_right_diagonal_y_position > 7) {
+        new_right_diagonal_y_position = new_right_diagonal_y_position - 8
+      }
+      if (new_left_diagonal_x_position > 7) {
+        new_left_diagonal_x_position = new_left_diagonal_x_position - 8
+      }
+      if (new_left_diagonal_y_position > 7) {
+        new_left_diagonal_y_position = new_left_diagonal_y_position - 8
+      }
+
+      for (let j = 0; j <= possible_moves_to_return.length; j++) {
+        let possible_move_to_check = possible_moves_to_return[j]
+        if (possible_move_to_check.x == new_right_diagonal_x_position && possible_move_to_check.y == new_right_diagonal_y_position || possible_move_to_check.x == new_left_diagonal_x_position && possible_move_to_check.y == new_left_diagonal_y_position || current_location.x == new_left_diagonal_x_position && current_location.y == new_left_diagonal_y_position || current_location.x == new_right_diagonal_x_position && current_location.y == new_right_diagonal_y_position) {
+        } else {
+          possible_moves_to_return.append({ x: new_right_diagonal_x_position, y: new_right_diagonal_y_position })
+          possible_moves_to_return.append({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
+        }
+      }
+    }
     if (piece_to_check.piece == "king") { }
     if (piece_to_check.piece == "knight") { }
   }
