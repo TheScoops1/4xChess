@@ -176,7 +176,7 @@ function startGame(session_token) {
       game_board.push(board_position);
     }
   }
-  console.log(game_board)
+  console.log(game_pieces)
   createGameSession(session_token)
 }
 
@@ -253,13 +253,12 @@ function checkPossibleMoves(piece_to_check) {
         new_left_diagonal_y_position = new_left_diagonal_y_position - 8
       }
 
-      for (let j = 0; j <= possible_moves_to_return.length; j++) {
-        let possible_move_to_check = possible_moves_to_return[j]
-        if (possible_move_to_check.x == new_right_diagonal_x_position && possible_move_to_check.y == new_right_diagonal_y_position || possible_move_to_check.x == new_left_diagonal_x_position && possible_move_to_check.y == new_left_diagonal_y_position || current_location.x == new_left_diagonal_x_position && current_location.y == new_left_diagonal_y_position || current_location.x == new_right_diagonal_x_position && current_location.y == new_right_diagonal_y_position) {
-        } else {
-          possible_moves_to_return.push({ x: new_right_diagonal_x_position, y: new_right_diagonal_y_position })
-          possible_moves_to_return.push({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
-        }
+      if ((new_right_diagonal_x_position < 7 && new_right_diagonal_x_position > 0) || (new_right_diagonal_y_position < 7 && new_right_diagonal_y_position > 0)) {
+        possible_moves_to_return.push({ x: new_right_diagonal_y_position, y: new_right_diagonal_y_position })
+      }
+
+      if ((new_left_diagonal_x_position < 7 && new_left_diagonal_x_position > 0) || (new_left_diagonal_y_position < 7 && new_left_diagonal_y_position > 0)) {
+        possible_moves_to_return.push({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
       }
 
     }
@@ -372,7 +371,7 @@ function checkPossibleMoves(piece_to_check) {
       possible_moves_to_return.push(spot_seven)
     }
 
-    if (spot_eight.x < 7 || spot_eight.x > 0 || spot_eight.y < 7 || spot_eight.y > 0) {
+    if (spot_eight.x < 7 || spot_eimanga chaptersght.x > 0 || spot_eight.y < 7 || spot_eight.y > 0) {
       possible_moves_to_return.push(spot_eight)
     }
   }
@@ -569,6 +568,8 @@ function whereToMove(spot_to_move_to, session_token) {
 
   spot_moved_from_HTML_element.onclick = function () { whereToMove({ 'class': class_name, 'x': Number(x_position_for_spot_moved_from), 'y': Number(y_spot_for_spot_moved_from) }, session_token) }
   piece_to_move_HTML_element = null
+
+  console.log(game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count])
 
   game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.x = spot_to_move_to.x
   game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.y = spot_to_move_to.y
