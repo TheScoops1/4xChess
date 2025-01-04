@@ -228,8 +228,8 @@ function checkPossibleMoves(piece_to_check) {
       if (new_y_position > 7) {
         new_y_position = new_y_position - 8
       }
-      possible_moves_to_return.append({ x: new_x_position, y: current_location.y })
-      possible_moves_to_return.append({ x: current_location.x, y: new_y_position })
+      possible_moves_to_return.push({ x: new_x_position, y: current_location.y })
+      possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
     }
   }
   if (piece_to_check.piece == "bishop") {
@@ -257,8 +257,8 @@ function checkPossibleMoves(piece_to_check) {
         let possible_move_to_check = possible_moves_to_return[j]
         if (possible_move_to_check.x == new_right_diagonal_x_position && possible_move_to_check.y == new_right_diagonal_y_position || possible_move_to_check.x == new_left_diagonal_x_position && possible_move_to_check.y == new_left_diagonal_y_position || current_location.x == new_left_diagonal_x_position && current_location.y == new_left_diagonal_y_position || current_location.x == new_right_diagonal_x_position && current_location.y == new_right_diagonal_y_position) {
         } else {
-          possible_moves_to_return.append({ x: new_right_diagonal_x_position, y: new_right_diagonal_y_position })
-          possible_moves_to_return.append({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
+          possible_moves_to_return.push({ x: new_right_diagonal_x_position, y: new_right_diagonal_y_position })
+          possible_moves_to_return.push({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
         }
       }
 
@@ -270,7 +270,7 @@ function checkPossibleMoves(piece_to_check) {
       if (first_turn == true) {
         for (let i = 0; i < 2; i++) {
           new_y_position = new_y_position - 1
-          possible_moves_to_return.append({ x: current_location.x, y: new_y_position })
+          possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
         }
       }
     }
@@ -280,11 +280,11 @@ function checkPossibleMoves(piece_to_check) {
       if (first_turn == true) {
         for (let i = 0; i < 2; i++) {
           new_y_position = new_y_position - 1
-          possible_moves_to_return.append({ x: current_location.x, y: new_y_position })
+          possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
         }
       } else {
         new_y_position = new_y_position - 1
-        possible_moves_to_return.append({ x: current_location.x, y: new_y_position })
+        possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
       }
     }
   }
@@ -308,8 +308,8 @@ function checkPossibleMoves(piece_to_check) {
         new_y_position = new_y_position - 8
       }
 
-      possible_moves_to_return.append({ x: new_x_position, y: current_location.y })
-      possible_moves_to_return.append({ x: current_location.x, y: new_y_position })
+      possible_moves_to_return.push({ x: new_x_position, y: current_location.y })
+      possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
 
       if (new_right_diagonal_x_position > 7) {
         new_right_diagonal_x_position = new_right_diagonal_x_position - 8
@@ -328,8 +328,8 @@ function checkPossibleMoves(piece_to_check) {
         let possible_move_to_check = possible_moves_to_return[j]
         if (possible_move_to_check.x == new_right_diagonal_x_position && possible_move_to_check.y == new_right_diagonal_y_position || possible_move_to_check.x == new_left_diagonal_x_position && possible_move_to_check.y == new_left_diagonal_y_position || current_location.x == new_left_diagonal_x_position && current_location.y == new_left_diagonal_y_position || current_location.x == new_right_diagonal_x_position && current_location.y == new_right_diagonal_y_position) {
         } else {
-          possible_moves_to_return.append({ x: new_right_diagonal_x_position, y: new_right_diagonal_y_position })
-          possible_moves_to_return.append({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
+          possible_moves_to_return.push({ x: new_right_diagonal_x_position, y: new_right_diagonal_y_position })
+          possible_moves_to_return.push({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
         }
       }
     }
@@ -344,14 +344,37 @@ function checkPossibleMoves(piece_to_check) {
     let spot_seven = { x: current_location.x + 1, y: current_location.y }
     let spot_eight = { x: current_location.x + 1, y: current_location.y + 1 }
 
-    possible_moves_to_return.append(spot_one)
-    possible_moves_to_return.append(spot_two)
-    possible_moves_to_return.append(spot_three)
-    possible_moves_to_return.append(spot_four)
-    possible_moves_to_return.append(spot_five)
-    possible_moves_to_return.append(spot_six)
-    possible_moves_to_return.append(spot_seven)
-    possible_moves_to_return.append(spot_eight)
+    if (spot_one.x < 7 || spot_one.x > 0 || spot_one.y < 7 || spot_one.y > 0) {
+      possible_moves_to_return.push(spot_one)
+    }
+
+    if (spot_two.x < 7 || spot_two.x > 0 || spot_two.y < 7 || spot_two.y > 0) {
+      possible_moves_to_return.push(spot_two)
+    }
+
+    if (spot_three.x < 7 || spot_three.x > 0 || spot_three.y < 7 || spot_three.y > 0) {
+      possible_moves_to_return.push(spot_three)
+    }
+
+    if (spot_four.x < 7 || spot_four.x > 0 || spot_four.y < 7 || spot_four.y > 0) {
+      possible_moves_to_return.push(spot_four)
+    }
+
+    if (spot_five.x < 7 || spot_five.x > 0 || spot_five.y < 7 || spot_five.y > 0) {
+      possible_moves_to_return.push(spot_five)
+    }
+
+    if (spot_six.x < 7 || spot_six.x > 0 || spot_six.y < 7 || spot_six.y > 0) {
+      possible_moves_to_return.push(spot_six)
+    }
+
+    if (spot_seven.x < 7 || spot_seven.x > 0 || spot_seven.y < 7 || spot_seven.y > 0) {
+      possible_moves_to_return.push(spot_seven)
+    }
+
+    if (spot_eight.x < 7 || spot_eight.x > 0 || spot_eight.y < 7 || spot_eight.y > 0) {
+      possible_moves_to_return.push(spot_eight)
+    }
   }
 
 
@@ -369,215 +392,220 @@ function checkPossibleMoves(piece_to_check) {
     let down_move_left = { x: current_location.x - 1, y: current_location.y + 3 }
 
     if (left_move_down.x < 7 || left_move_down.x > 0 || left_move_down.y < 7 || left_move_down.y > 0) {
-      possible_moves_to_return.append(left_move_down)
+      possible_moves_to_return.push(left_move_down)
     }
     if (left_move_up.x < 7 || left_move_up.x > 0 || left_move_up.y < 7 || left_move_up.y > 0) {
-      possible_moves_to_return.append(left_move_down)
+      possible_moves_to_return.push(left_move_down)
     }
     if (up_move_left.x < 7 || up_move_left.x > 0 || up_move_left.y < 7 || up_move_left.y > 0) {
-      possible_moves_to_return.append(up_move_left)
+      possible_moves_to_return.push(up_move_left)
     }
     if (up_move_right.x < 7 || up_move_right.x > 0 || up_move_right.y < 7 || up_move_right.y > 0) {
-      possible_moves_to_return.append(up_move_right)
+      possible_moves_to_return.push(up_move_right)
     }
     if (right_move_down.x < 7 || right_move_down.x > 0 || right_move_down.y < 7 || right_move_down.y > 0) {
-      possible_moves_to_return.append(right_move_down)
+      possible_moves_to_return.push(right_move_down)
     }
     if (right_move_up.x < 7 || right_move_up.x > 0 || right_move_up.y < 7 || right_move_up.y > 0) {
-      possible_moves_to_return.append(right_move_up)
+      possible_moves_to_return.push(right_move_up)
     }
     if (down_move_right.x < 7 || down_move_right.x > 0 || down_move_right.y < 7 || down_move_right.y > 0) {
-      possible_moves_to_return.append(down_move_right)
+      possible_moves_to_return.push(down_move_right)
     }
     if (down_move_left.x < 7 || down_move_left.x > 0 || down_move_left.y < 7 || down_move_left.y > 0) {
-      possible_moves_to_return.append(down_move_left)
+      possible_moves_to_return.push(down_move_left)
     }
   }
 
-  function checkIfMoveIsOffBoard(piece_to_check, move_set) {
+  return possible_moves_to_return
+}
 
-  }
+function checkIfMoveIsOffBoard(piece_to_check, move_set) {
 
-  async function sendMoveToDB(session_token) {
-    try {
-      console.log(session_token);
-      console.log(game_board);
-      console.log(JSON.stringify(game_board))
-      const response = await fetch('/' + String(session_token) + '/test/',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-          },
-          body: JSON.stringify(game_board)
-        });
+}
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      console.log(data.test, ' Test was succesful');
-
-    } catch (error) {
-      console.log('Error:', error);
-    }
-  }
-
-  async function testGatherGameSession(session_token) {
-    try {
-      const response = await fetch('/' + String(session_token) + '/gather_game_session/', {
-        method: 'GET',
+async function sendMoveToDB(session_token) {
+  try {
+    console.log(session_token);
+    console.log(game_board);
+    console.log(JSON.stringify(game_board))
+    const response = await fetch('/' + String(session_token) + '/test/',
+      {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': getCookie('csrftoken')
-        }
+        },
+        body: JSON.stringify(game_board)
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
 
-      const data = await response.json();
-      console.log(data)
-    } catch (error) {
-      console.log('Error:', error);
+    const data = await response.json();
+    console.log(data.test, ' Test was succesful');
+
+  } catch (error) {
+    console.log('Error:', error);
+  }
+}
+
+async function testGatherGameSession(session_token) {
+  try {
+    const response = await fetch('/' + String(session_token) + '/gather_game_session/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data)
+  } catch (error) {
+    console.log('Error:', error);
+  }
+}
+
+async function createGameSession(session_token) {
+  try {
+    const response = await fetch('/' + String(session_token) + '/create_game_session/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(game_pieces)
+      });
+    if (!response.ok) {
+      throw new Error('Network response was not okay');
+    }
+
+    const data = await response.json();
+    console.log(data)
+  } catch (error) {
+    console.log('Error:', error)
+  }
+}
+
+async function updateGameBoard(session_token) {
+  try {
+    const response = await fetch('/' + String(session_token) + "/update_game_board/",
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(game_pieces)
+      });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data)
+  } catch (error) {
+    console.log('Error:', error);
+  }
+}
+
+function determineLegalMove(name_of_piece, start_position, end_position, attack) {
+  game_piece = game_pieces[name_of_piece]
+  if (name_of_piece.includes("pawn")) {
+    if (attack) {
     }
   }
-
-  async function createGameSession(session_token) {
-    try {
-      const response = await fetch('/' + String(session_token) + '/create_game_session/',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-          },
-          body: JSON.stringify(game_pieces)
-        });
-      if (!response.ok) {
-        throw new Error('Network response was not okay');
-      }
-
-      const data = await response.json();
-      console.log(data)
-    } catch (error) {
-      console.log('Error:', error)
-    }
-  }
-
-  async function updateGameBoard(session_token) {
-    try {
-      const response = await fetch('/' + String(session_token) + "/update_game_board/",
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-          },
-          body: JSON.stringify(game_pieces)
-        });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      console.log(data)
-    } catch (error) {
-      console.log('Error:', error);
-    }
-  }
-
-  function determineLegalMove(name_of_piece, start_position, end_position, attack) {
-    game_piece = game_pieces[name_of_piece]
-    if (name_of_piece.includes("pawn")) {
-      if (attack) {
-      }
-    }
-  }
-  function pieceToMove(nameOfPiece, session_token) {
-    if (piece_to_move == null) {
-      piece_to_move = game_pieces[nameOfPiece]
-      if (turn_ident == true) {
-        if (piece_to_move.color == "white") {
-        } else {
-          piece_to_move = null
-        }
+}
+function pieceToMove(nameOfPiece, session_token) {
+  if (piece_to_move == null) {
+    piece_to_move = game_pieces[nameOfPiece]
+    if (turn_ident == true) {
+      if (piece_to_move.color == "white") {
       } else {
-        if (piece_to_move.color == "black") {
-        } else {
-          piece_to_move = null
-        }
+        piece_to_move = null
       }
     } else {
-      piece_to_attack = game_pieces[nameOfPiece]
-      console.log(piece_to_attack)
-      whereToMove({ class: "column_" + piece_to_attack.position.x + " row_" + piece_to_attack.position.y }, session_token)
+      if (piece_to_move.color == "black") {
+      } else {
+        piece_to_move = null
+      }
     }
+  } else {
+    piece_to_attack = game_pieces[nameOfPiece]
+    console.log(piece_to_attack)
+    whereToMove({ class: "column_" + piece_to_attack.position.x + " row_" + piece_to_attack.position.y }, session_token)
+  }
+}
+
+function whereToMove(spot_to_move_to, session_token) {
+
+  let piece_to_move_HTML_element = document.getElementsByClassName(piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count)[0]
+  let spot_to_move_to_HTML_element = document.getElementsByClassName(spot_to_move_to.class)[0]
+
+  if (piece_to_attack == null) {
+  } else {
+    console.log(spot_to_move_to_HTML_element.firstElementChild)
+    spot_to_move_to_HTML_element.removeChild(spot_to_move_to_HTML_element.firstElementChild)
+
+    delete game_pieces[piece_to_attack.color + " " + piece_to_attack.piece + " " + piece_to_attack.piece_count]
   }
 
-  function whereToMove(spot_to_move_to, session_token) {
+  spot_to_move_to_HTML_element.append(piece_to_move_HTML_element)
+  spot_to_move_to_HTML_element.onclick = ''
 
-    let piece_to_move_HTML_element = document.getElementsByClassName(piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count)[0]
-    let spot_to_move_to_HTML_element = document.getElementsByClassName(spot_to_move_to.class)[0]
+  let spot_moved_from_HTML_element = document.getElementsByClassName("column_" + piece_to_move.position.x + " row_" + piece_to_move.position.y)[0]
+  let class_name = spot_moved_from_HTML_element.className
 
-    if (piece_to_attack == null) {
-    } else {
-      console.log(spot_to_move_to_HTML_element.firstElementChild)
-      spot_to_move_to_HTML_element.removeChild(spot_to_move_to_HTML_element.firstElementChild)
+  let x_position_for_spot_moved_from = spot_moved_from_HTML_element.className[7]
+  let y_spot_for_spot_moved_from = spot_moved_from_HTML_element.className[13]
 
-      delete game_pieces[piece_to_attack.color + " " + piece_to_attack.piece + " " + piece_to_attack.piece_count]
-    }
+  spot_moved_from_HTML_element.onclick = function () { whereToMove({ 'class': class_name, 'x': Number(x_position_for_spot_moved_from), 'y': Number(y_spot_for_spot_moved_from) }, session_token) }
+  piece_to_move_HTML_element = null
 
-    spot_to_move_to_HTML_element.append(piece_to_move_HTML_element)
-    spot_to_move_to_HTML_element.onclick = ''
+  game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.x = spot_to_move_to.x
+  game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.y = spot_to_move_to.y
 
-    let spot_moved_from_HTML_element = document.getElementsByClassName("column_" + piece_to_move.position.x + " row_" + piece_to_move.position.y)[0]
-    let class_name = spot_moved_from_HTML_element.className
+  console.log(checkPossibleMoves(piece_to_move))
 
-    let x_position_for_spot_moved_from = spot_moved_from_HTML_element.className[7]
-    let y_spot_for_spot_moved_from = spot_moved_from_HTML_element.className[13]
-
-    spot_moved_from_HTML_element.onclick = function () { whereToMove({ 'class': class_name, 'x': Number(x_position_for_spot_moved_from), 'y': Number(y_spot_for_spot_moved_from) }, session_token) }
-    piece_to_move_HTML_element = null
-
-    game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.x = spot_to_move_to.x
-    game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.y = spot_to_move_to.y
-
-    piece_to_move = null
-    piece_to_attack = null
-    if (turn_ident == true) {
-      turn_ident = false
-    } else {
-      turn_ident = true
-    }
-
-    changeTitleHTML()
-
-    updateGameBoard(session_token)
-
+  piece_to_move = null
+  piece_to_attack = null
+  if (turn_ident == true) {
+    turn_ident = false
+  } else {
+    turn_ident = true
   }
 
-  function changeTitleHTML() {
-    turn_ident_HTML_element = document.getElementsByClassName("turn_ident")[0]
-    white_point_counter_HTML_element = document.getElementsByClassName("white_point_counter")[0]
-    black_point_counter_HTML_element = document.getElementsByClassName("black_point_counter")[0]
+  changeTitleHTML()
 
-    console.log(turn_ident_HTML_element)
-    console.log(white_point_counter_HTML_element)
-    console.log(black_point_counter_HTML_element)
+  updateGameBoard(session_token)
 
-    if (turn_ident == true) {
-      turn_ident_HTML_element.innerText = "Whites Turn"
-    } else {
-      turn_ident_HTML_element.innerText = "Blacks Turn"
-    }
+}
 
-    white_point_counter_HTML_element = String(whitePointCounter)
-    black_point_counter_HTML_element = String(blackPointCounter)
+function changeTitleHTML() {
+  turn_ident_HTML_element = document.getElementsByClassName("turn_ident")[0]
+  white_point_counter_HTML_element = document.getElementsByClassName("white_point_counter")[0]
+  black_point_counter_HTML_element = document.getElementsByClassName("black_point_counter")[0]
+
+  console.log(turn_ident_HTML_element)
+  console.log(white_point_counter_HTML_element)
+  console.log(black_point_counter_HTML_element)
+
+  if (turn_ident == true) {
+    turn_ident_HTML_element.innerText = "Whites Turn"
+  } else {
+    turn_ident_HTML_element.innerText = "Blacks Turn"
   }
+
+  white_point_counter_HTML_element = String(whitePointCounter)
+  black_point_counter_HTML_element = String(blackPointCounter)
+}
 
 
