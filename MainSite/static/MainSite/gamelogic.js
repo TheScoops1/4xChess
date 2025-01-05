@@ -371,7 +371,7 @@ function checkPossibleMoves(piece_to_check) {
       possible_moves_to_return.push(spot_seven)
     }
 
-    if (spot_eight.x < 7 || spot_eimanga chaptersght.x > 0 || spot_eight.y < 7 || spot_eight.y > 0) {
+    if (spot_eight.x < 7 || spot_eight.x > 0 || spot_eight.y < 7 || spot_eight.y > 0) {
       possible_moves_to_return.push(spot_eight)
     }
   }
