@@ -232,6 +232,7 @@ function checkPossibleMoves(piece_to_check) {
       possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
     }
   }
+
   if (piece_to_check.piece == "bishop") {
     for (let i = 0; i < 8; i++) {
       new_right_diagonal_x_position = new_right_diagonal_x_position - 1
@@ -263,6 +264,7 @@ function checkPossibleMoves(piece_to_check) {
 
     }
   }
+
   if (piece_to_check.piece == "pawn") {
     if (piece_to_check.color == "black") {
       let new_y_position = current_location.y
@@ -287,13 +289,10 @@ function checkPossibleMoves(piece_to_check) {
       }
     }
   }
-  if (piece_to_check.piece == "queen") {
-    for (let i = 0; i > 8; i++) {
-      new_right_diagonal_x_position = new_right_diagonal_x_position - 1
-      new_right_diagonal_y_position = new_right_diagonal_y_position + 1
 
-      new_left_diagonal_x_position = new_left_diagonal_x_position + 1
-      new_left_diagonal_y_position = new_left_diagonal_y_position + 1
+  if (piece_to_check.piece == "queen") {
+    console.log("Checking the possible moves for the queen")
+    for (let i = 0; i < 7; i++) {
 
       new_x_position = new_x_position + 1
 
@@ -307,8 +306,30 @@ function checkPossibleMoves(piece_to_check) {
         new_y_position = new_y_position - 8
       }
 
-      possible_moves_to_return.push({ x: new_x_position, y: current_location.y })
-      possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
+      if (new_y_position < 0) {
+        new_y_position = new_y_position + 8
+      }
+
+      if (new_x_position < 0) {
+        new_x_position = new_x_position + 8
+      }
+
+      if (new_x_position !== current_location.x) {
+        possible_moves_to_return.push({ x: new_x_position, y: current_location.y })
+      }
+
+      if (new_y_position !== current_location.y) {
+        possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
+      }
+    }
+
+    for (let i = 0; i < 7; i++) {
+
+      new_right_diagonal_x_position = new_right_diagonal_x_position - 1
+      new_right_diagonal_y_position = new_right_diagonal_y_position + 1
+
+      new_left_diagonal_x_position = new_left_diagonal_x_position + 1
+      new_left_diagonal_y_position = new_left_diagonal_y_position + 1
 
       if (new_right_diagonal_x_position > 7) {
         new_right_diagonal_x_position = new_right_diagonal_x_position - 8
@@ -323,16 +344,30 @@ function checkPossibleMoves(piece_to_check) {
         new_left_diagonal_y_position = new_left_diagonal_y_position - 8
       }
 
-      for (let j = 0; j <= possible_moves_to_return.length; j++) {
-        let possible_move_to_check = possible_moves_to_return[j]
-        if (possible_move_to_check.x == new_right_diagonal_x_position && possible_move_to_check.y == new_right_diagonal_y_position || possible_move_to_check.x == new_left_diagonal_x_position && possible_move_to_check.y == new_left_diagonal_y_position || current_location.x == new_left_diagonal_x_position && current_location.y == new_left_diagonal_y_position || current_location.x == new_right_diagonal_x_position && current_location.y == new_right_diagonal_y_position) {
-        } else {
-          possible_moves_to_return.push({ x: new_right_diagonal_x_position, y: new_right_diagonal_y_position })
-          possible_moves_to_return.push({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
-        }
+
+      if (new_right_diagonal_x_position < 0) {
+        new_right_diagonal_x_position = new_right_diagonal_x_position + 8
+      }
+      if (new_right_diagonal_y_position < 0) {
+        new_right_diagonal_y_position = new_right_diagonal_y_position + 8
+      }
+      if (new_left_diagonal_x_position < 0) {
+        new_left_diagonal_x_position = new_left_diagonal_x_position + 8
+      }
+      if (new_left_diagonal_y_position < 0) {
+        new_left_diagonal_y_position = new_left_diagonal_y_position + 8
+      }
+
+      if (new_right_diagonal_y_position !== current_location.y || new_right_diagonal_x_position !== current_location.x) {
+        possible_moves_to_return.push({ x: new_right_diagonal_x_position, y: new_right_diagonal_y_position })
+      }
+
+      if (new_left_diagonal_x_position !== current_location.x || new_left_diagonal_y_position !== current_location.y) {
+        possible_moves_to_return.push({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
       }
     }
   }
+
   if (piece_to_check.piece == "king") {
     let spot_one = { x: current_location.x + 1, y: current_location.y + 1 }
     let spot_two = { x: current_location.x - 1, y: current_location.y + 1 }
