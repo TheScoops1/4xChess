@@ -448,17 +448,33 @@ function checkPossibleMoves(piece_to_check) {
   }
 
   console.log(possible_moves_to_return)
-  possible_moves_to_return = determineLegalMoves(possible_moves_to_return)
+  possible_moves_to_return = determineLegalMoves(possible_moves_to_return, piece_to_check.position)
 
   return possible_moves_to_return
 }
 
-function determineLegalMoves(moves_to_check) {
+function determineLegalMoves(moves_to_check, piece_to_check_current_cordiantes) {
   for (let i = 0; i <= moves_to_check.length; i++) {
     for (let j = 0; j <= game_board.length; j++) {
       if (game_board[j] == undefined || moves_to_check[i] == undefined) {
       } else if (game_board[j].piece !== "" && moves_to_check[i].x == game_board[j].cordinates.y && moves_to_check[i].x == game_board[j].cordinates.y) {
-        console.log("removing the possible move: ", moves_to_check[i])
+
+        if (moves_to_check[i].x > piece_to_check_current_cordiantes.x && moves_to_check[i].y > piece_to_check_current_cordiantes.y) {
+          for (let k = 0; k <= moves_to_check.length; k++) {
+            if (moves_to_check[k].x > moves_to_check[i].x && moves_to_check[k].y > moves_to_check[i].y) {
+              moves_to_check.splice(k, 1)
+            }
+          }
+        }
+
+        if (moves_to_check[i].x > piece_to_check_current_cordiantes.x && moves_to_check[i].y == piece_to_check_current_cordiantes.y) {
+          for (let k = 0; k <= moves_to_check.length; k++) {
+            if (moves_to_check[k].x > moves_to_check[i].x && moves_to_check[k].y == moves_to_check[i].y) {
+              moves_to_check.splice(k, 1)
+            }
+          }
+        }
+
         moves_to_check.splice(i, 1)
       }
     }
