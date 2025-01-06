@@ -6,8 +6,6 @@ let game_pieces = {}
 let piece_to_move = null
 let piece_to_attack = null
 
-let first_turn = true
-
 let turn_ident = true
 
 let whitePointCounter = 0
@@ -24,7 +22,8 @@ function startGame(session_token) {
         piece: "",
         position: "",
         point_value: 0,
-        piece_count: 0
+        piece_count: 0,
+        first_turn: true
       }
 
       if (i == 0) {
@@ -197,13 +196,6 @@ function getCookie(name) {
   return cookieValue;
 }
 
-function checkLegalAtacck(pieceAttacking, pieceBeingAttacked, turnMarker) {
-}
-
-function checkLegalMove(piece_being_moved, turn_marker) {
-
-}
-
 function checkPossibleMoves(piece_to_check) {
   let possible_moves_to_return = []
   let current_location = piece_to_check.position
@@ -268,17 +260,21 @@ function checkPossibleMoves(piece_to_check) {
   if (piece_to_check.piece == "pawn") {
     if (piece_to_check.color == "black") {
       let new_y_position = current_location.y
-      if (first_turn == true) {
+      if (piece_to_check.first_turn == true) {
         for (let i = 0; i < 2; i++) {
           new_y_position = new_y_position - 1
           possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
+          piece_to_check.first_turn = false
         }
+      } else {
+        new_y_position = new_y_position - 1
+        possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
       }
     }
 
     if (piece_to_check.color == "white") {
       let new_y_position = current_location.y
-      if (first_turn == true) {
+      if (piece_to_check.first_turn == true) {
         for (let i = 0; i < 2; i++) {
           new_y_position = new_y_position - 1
           possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
@@ -286,12 +282,12 @@ function checkPossibleMoves(piece_to_check) {
       } else {
         new_y_position = new_y_position - 1
         possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
+        piece_to_check.first_turn = false
       }
     }
   }
 
   if (piece_to_check.piece == "queen") {
-    console.log("Checking the possible moves for the queen")
     for (let i = 0; i < 7; i++) {
 
       new_x_position = new_x_position + 1
@@ -451,11 +447,24 @@ function checkPossibleMoves(piece_to_check) {
     }
   }
 
+  console.log(possible_moves_to_return)
+  possible_moves_to_return = determineLegalMoves(possible_moves_to_return)
+
   return possible_moves_to_return
 }
 
-function checkIfMoveIsOffBoard(piece_to_check, move_set) {
+function determineLegalMoves(moves_to_check) {
+  for (let i = 0; i <= moves_to_check.length; i++) {
+    for (let j = 0; j <= game_board.length; j++) {
+      if (game_board[j] == undefined || moves_to_check[i] == undefined) {
+      } else if (game_board[j].piece !== "" && moves_to_check[i].x == game_board[j].cordinates.y && moves_to_check[i].x == game_board[j].cordinates.y) {
+        console.log("removing the possible move: ", moves_to_check[i])
+        moves_to_check.splice(i, 1)
+      }
+    }
+  }
 
+  return moves_to_check
 }
 
 async function sendMoveToDB(session_token) {
@@ -551,16 +560,12 @@ async function updateGameBoard(session_token) {
   }
 }
 
-function determineLegalMove(name_of_piece, start_position, end_position, attack) {
-  game_piece = game_pieces[name_of_piece]
-  if (name_of_piece.includes("pawn")) {
-    if (attack) {
-    }
-  }
-}
-function pieceToMove(nameOfPiece, session_token) {
+function pieceToMove(name_of_piece, session_token) {
   if (piece_to_move == null) {
-    piece_to_move = game_pieces[nameOfPiece]
+    piece_to_move = game_pieces[name_of_piece]
+
+    console.log(checkPossibleMoves(piece_to_move))
+
     if (turn_ident == true) {
       if (piece_to_move.color == "white") {
       } else {
@@ -572,9 +577,10 @@ function pieceToMove(nameOfPiece, session_token) {
         piece_to_move = null
       }
     }
+  } else if (piece_to_move.color == game_pieces[name_of_piece].color) {
+    piece_to_move = game_pieces[name_of_piece]
   } else {
-    piece_to_attack = game_pieces[nameOfPiece]
-    console.log(piece_to_attack)
+    piece_to_attack = game_pieces[name_of_piece]
     whereToMove({ class: "column_" + piece_to_attack.position.x + " row_" + piece_to_attack.position.y }, session_token)
   }
 }
@@ -604,12 +610,10 @@ function whereToMove(spot_to_move_to, session_token) {
   spot_moved_from_HTML_element.onclick = function () { whereToMove({ 'class': class_name, 'x': Number(x_position_for_spot_moved_from), 'y': Number(y_spot_for_spot_moved_from) }, session_token) }
   piece_to_move_HTML_element = null
 
-  console.log(game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count])
 
   game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.x = spot_to_move_to.x
   game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.y = spot_to_move_to.y
 
-  console.log(checkPossibleMoves(piece_to_move))
 
   piece_to_move = null
   piece_to_attack = null
