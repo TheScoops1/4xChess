@@ -461,7 +461,9 @@ function determineLegalMoves(moves_to_check, piece_to_check_current_cordiantes) 
 
         if (moves_to_check[i].x > piece_to_check_current_cordiantes.x && moves_to_check[i].y > piece_to_check_current_cordiantes.y) {
           for (let k = 0; k <= moves_to_check.length; k++) {
-            if (moves_to_check[k].x > moves_to_check[i].x && moves_to_check[k].y > moves_to_check[i].y) {
+            if (moves_to_check[k] == undefined) {
+            } else if (moves_to_check[k].x > moves_to_check[i].x && moves_to_check[k].y > moves_to_check[i].y) {
+              console.log("splicing: ", moves_to_check[k])
               moves_to_check.splice(k, 1)
             }
           }
@@ -469,13 +471,81 @@ function determineLegalMoves(moves_to_check, piece_to_check_current_cordiantes) 
 
         if (moves_to_check[i].x > piece_to_check_current_cordiantes.x && moves_to_check[i].y == piece_to_check_current_cordiantes.y) {
           for (let k = 0; k <= moves_to_check.length; k++) {
-            if (moves_to_check[k].x > moves_to_check[i].x && moves_to_check[k].y == moves_to_check[i].y) {
+            if (moves_to_check[k] == undefined) {
+            } else if (moves_to_check[k].x > moves_to_check[i].x && moves_to_check[k].y == moves_to_check[i].y) {
+              console.log("splicing: ", moves_to_check[k])
+              moves_to_check.splice(k, 1)
+            }
+          }
+        }
+
+        if (moves_to_check[i].x < piece_to_check_current_cordiantes.x && moves_to_check[i].y < piece_to_check_current_cordiantes.y) {
+          for (let k = 0; k <= moves_to_check.length; k++) {
+            if (moves_to_check[k] == undefined) {
+            } else if (moves_to_check[k].x < moves_to_check[i].x && moves_to_check[k].y < moves_to_check[i].y) {
+              console.log("splicing: ", moves_to_check[k])
+              moves_to_check.splice(k, 1)
+            }
+          }
+        }
+
+        if (moves_to_check[i].x == piece_to_check_current_cordiantes.x && moves_to_check[i].y < piece_to_check_current_cordiantes.y) {
+          for (let k = 0; k <= moves_to_check.length; k++) {
+            if (moves_to_check[k] == undefined) {
+            } else if (moves_to_check[k].x == moves_to_check[i].x && moves_to_check[k].y < moves_to_check[i].y) {
+
+              console.log("splicing: ", moves_to_check[k])
+              moves_to_check.splice(k, 1)
+            }
+          }
+        }
+
+        if (moves_to_check[i].x > piece_to_check_current_cordiantes.x && moves_to_check[i].y < piece_to_check_current_cordiantes.y) {
+          for (let k = 0; k <= moves_to_check.length; k++) {
+            if (moves_to_check[k] == undefined) {
+            } else if (moves_to_check[k].x < moves_to_check[i].x && moves_to_check[k].y < moves_to_check[i].y) {
+              console.log("splicing: ", moves_to_check[k])
+              moves_to_check.splice(k, 1)
+            }
+          }
+        }
+
+        if (moves_to_check[i].x == piece_to_check_current_cordiantes.x && moves_to_check[i].y > piece_to_check_current_cordiantes.y) {
+          for (let k = 0; k <= moves_to_check.length; k++) {
+            if (moves_to_check[k] == undefined) {
+            } else if (moves_to_check[k].x == moves_to_check[i].x && moves_to_check[k].y > moves_to_check[i].y) {
+
+              console.log("splicing: ", moves_to_check[k])
+              moves_to_check.splice(k, 1)
+            }
+          }
+        }
+
+        if (moves_to_check[i].x < piece_to_check_current_cordiantes.x && moves_to_check[i].y > piece_to_check_current_cordiantes.y) {
+          for (let k = 0; k <= moves_to_check.length; k++) {
+            if (moves_to_check[k] == undefined) {
+            } else if (moves_to_check[k].x > moves_to_check[i].x && moves_to_check[k].y < moves_to_check[i].y) {
+
+              console.log("splicing: ", moves_to_check[k])
+              moves_to_check.splice(k, 1)
+            }
+          }
+        }
+
+        if (moves_to_check[i].x < piece_to_check_current_cordiantes.x && moves_to_check[i].y == piece_to_check_current_cordiantes.y) {
+          for (let k = 0; k <= moves_to_check.length; k++) {
+            if (moves_to_check[k] == undefined) {
+            } else if (moves_to_check[k].x < moves_to_check[i].x && moves_to_check[k].y == moves_to_check[i].y) {
+
+              console.log("splicing: ", moves_to_check[k])
               moves_to_check.splice(k, 1)
             }
           }
         }
 
         moves_to_check.splice(i, 1)
+
+        console.log("splicing i : ", moves_to_check[i])
       }
     }
   }
@@ -595,6 +665,7 @@ function pieceToMove(name_of_piece, session_token) {
     }
   } else if (piece_to_move.color == game_pieces[name_of_piece].color) {
     piece_to_move = game_pieces[name_of_piece]
+    console.log(checkPossibleMoves(piece_to_move))
   } else {
     piece_to_attack = game_pieces[name_of_piece]
     whereToMove({ class: "column_" + piece_to_attack.position.x + " row_" + piece_to_attack.position.y }, session_token)
