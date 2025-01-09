@@ -553,6 +553,101 @@ function determineLegalMoves(moves_to_check, piece_to_check_current_cordiantes) 
   return moves_to_check
 }
 
+function determineLegalMove(piece_to_check, spot_to_move_to) {
+
+}
+
+function determineLegalPawnMove(piece_to_check, spot_to_move_to) {
+  let legal_moves_to_return = []
+
+  if (piece_to_check.first_turn == true) {
+    legal_moves_to_return.push({ x: piece_to_check.cordinates.x + 1, y: piece_to_check.cordinates.y + 1 })
+    legal_moves_to_return.push({ x: piece_to_check.cordinates.x + 2, y: piece_to_check.cordinates.y + 2 })
+  } else if (piece_to_check.first_turn == false) {
+    legal_moves_to_return.push({ x: piece_to_check.cordinates.x + 1, y: piece_to_check.cordinates.y + 1 })
+  }
+
+  return legal_moves_to_return
+}
+
+function determineLegalQueenMoves(piece_to_check, spot_to_move_to) {
+  for (let i = 0; i < 7; i++) {
+
+    new_x_position = new_x_position + 1
+
+    if (new_x_position > 7) {
+      new_x_position = new_x_position - 8
+    }
+
+    new_y_position = new_y_position + 1
+
+    if (new_y_position > 7) {
+      new_y_position = new_y_position - 8
+    }
+
+    if (new_y_position < 0) {
+      new_y_position = new_y_position + 8
+    }
+
+    if (new_x_position < 0) {
+      new_x_position = new_x_position + 8
+    }
+
+    if (new_x_position !== current_location.x) {
+      possible_moves_to_return.push({ x: new_x_position, y: current_location.y })
+    }
+
+    if (new_y_position !== current_location.y) {
+      possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
+    }
+  }
+
+  for (let i = 0; i < 7; i++) {
+
+    new_right_diagonal_x_position = new_right_diagonal_x_position - 1
+    new_right_diagonal_y_position = new_right_diagonal_y_position + 1
+
+    new_left_diagonal_x_position = new_left_diagonal_x_position + 1
+    new_left_diagonal_y_position = new_left_diagonal_y_position + 1
+
+    if (new_right_diagonal_x_position > 7) {
+      new_right_diagonal_x_position = new_right_diagonal_x_position - 8
+    }
+    if (new_right_diagonal_y_position > 7) {
+      new_right_diagonal_y_position = new_right_diagonal_y_position - 8
+    }
+    if (new_left_diagonal_x_position > 7) {
+      new_left_diagonal_x_position = new_left_diagonal_x_position - 8
+    }
+    if (new_left_diagonal_y_position > 7) {
+      new_left_diagonal_y_position = new_left_diagonal_y_position - 8
+    }
+
+
+    if (new_right_diagonal_x_position < 0) {
+      new_right_diagonal_x_position = new_right_diagonal_x_position + 8
+    }
+    if (new_right_diagonal_y_position < 0) {
+      new_right_diagonal_y_position = new_right_diagonal_y_position + 8
+    }
+    if (new_left_diagonal_x_position < 0) {
+      new_left_diagonal_x_position = new_left_diagonal_x_position + 8
+    }
+    if (new_left_diagonal_y_position < 0) {
+      new_left_diagonal_y_position = new_left_diagonal_y_position + 8
+    }
+
+    if (new_right_diagonal_y_position !== current_location.y || new_right_diagonal_x_position !== current_location.x) {
+      possible_moves_to_return.push({ x: new_right_diagonal_x_position, y: new_right_diagonal_y_position })
+    }
+
+    if (new_left_diagonal_x_position !== current_location.x || new_left_diagonal_y_position !== current_location.y) {
+      possible_moves_to_return.push({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
+    }
+  }
+
+}
+
 async function sendMoveToDB(session_token) {
   try {
     console.log(session_token);
