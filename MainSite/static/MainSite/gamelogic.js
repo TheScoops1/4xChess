@@ -570,82 +570,23 @@ function determineLegalPawnMove(piece_to_check, spot_to_move_to) {
   return legal_moves_to_return
 }
 
-function determineLegalQueenMoves(piece_to_check, spot_to_move_to) {
-  for (let i = 0; i < 7; i++) {
-
-    new_x_position = new_x_position + 1
-
-    if (new_x_position > 7) {
-      new_x_position = new_x_position - 8
-    }
-
-    new_y_position = new_y_position + 1
-
-    if (new_y_position > 7) {
-      new_y_position = new_y_position - 8
-    }
-
-    if (new_y_position < 0) {
-      new_y_position = new_y_position + 8
-    }
-
-    if (new_x_position < 0) {
-      new_x_position = new_x_position + 8
-    }
-
-    if (new_x_position !== current_location.x) {
-      possible_moves_to_return.push({ x: new_x_position, y: current_location.y })
-    }
-
-    if (new_y_position !== current_location.y) {
-      possible_moves_to_return.push({ x: current_location.x, y: new_y_position })
+function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
+  if (spot_to_move_to.x < piece_to_check.cordinates.x && spot_to_move_to.y < piece_to_check.cordinates.y) {
+    let cordinates_to_check = { x: spot_to_move_to.x, y: spot_to_move_to.y }
+    for (let i = 0; i <= game_board.length; i++) {
+      if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.x == cordinates_to_check.y && attacking == false && game_board[i].piece == "") {
+        cordinates_to_check.x = cordinates_to_check.x - 1
+        cordinates_to_check.y = cordinates_to_check.y - 1
+      } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && attacking == true && game_board[i] != "") {
+        cordinates_to_check.x = cordinates_to_check.x - 1
+        cordinates_to_check.y = cordinates_to_check.y - 1
+        attacking = false
+      } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && game_board[i].piece != "") {
+        return false
+      }
+      return true
     }
   }
-
-  for (let i = 0; i < 7; i++) {
-
-    new_right_diagonal_x_position = new_right_diagonal_x_position - 1
-    new_right_diagonal_y_position = new_right_diagonal_y_position + 1
-
-    new_left_diagonal_x_position = new_left_diagonal_x_position + 1
-    new_left_diagonal_y_position = new_left_diagonal_y_position + 1
-
-    if (new_right_diagonal_x_position > 7) {
-      new_right_diagonal_x_position = new_right_diagonal_x_position - 8
-    }
-    if (new_right_diagonal_y_position > 7) {
-      new_right_diagonal_y_position = new_right_diagonal_y_position - 8
-    }
-    if (new_left_diagonal_x_position > 7) {
-      new_left_diagonal_x_position = new_left_diagonal_x_position - 8
-    }
-    if (new_left_diagonal_y_position > 7) {
-      new_left_diagonal_y_position = new_left_diagonal_y_position - 8
-    }
-
-
-    if (new_right_diagonal_x_position < 0) {
-      new_right_diagonal_x_position = new_right_diagonal_x_position + 8
-    }
-    if (new_right_diagonal_y_position < 0) {
-      new_right_diagonal_y_position = new_right_diagonal_y_position + 8
-    }
-    if (new_left_diagonal_x_position < 0) {
-      new_left_diagonal_x_position = new_left_diagonal_x_position + 8
-    }
-    if (new_left_diagonal_y_position < 0) {
-      new_left_diagonal_y_position = new_left_diagonal_y_position + 8
-    }
-
-    if (new_right_diagonal_y_position !== current_location.y || new_right_diagonal_x_position !== current_location.x) {
-      possible_moves_to_return.push({ x: new_right_diagonal_x_position, y: new_right_diagonal_y_position })
-    }
-
-    if (new_left_diagonal_x_position !== current_location.x || new_left_diagonal_y_position !== current_location.y) {
-      possible_moves_to_return.push({ x: new_left_diagonal_x_position, y: new_left_diagonal_y_position })
-    }
-  }
-
 }
 
 async function sendMoveToDB(session_token) {
