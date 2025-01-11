@@ -763,6 +763,106 @@ function determineLegalKnightMove(piece_to_check, spot_to_move_to, attacking) {
   return false
 }
 
+function determineLegalRookMove(piece_to_check, spot_to_move_to, attacking) {
+  let cordinates_to_check = { x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y }
+  if (piece_to_check.cordinates.x == spot_to_move_to.x) {
+    let cordinate_difference = Math.max(piece_to_check.cordinates.y, spot_to_move_to.y) - Math.min(piece_to_check.cordinates.y, spot_to_move_to.y)
+    for (let i = 0; i < cordinate_difference; i++) {
+
+      if (piece_to_check.cordinates.y < spot_to_move_to.y) {
+        cordinates_to_check.y = cordinates_to_check.y + 1
+      } else if (piece_to_check.cordinates.y > spot_to_move_to.y) {
+        cordinates_to_check.y = cordinates_to_check.y - 1
+      }
+
+      for (let j = 0; j < game_board.length; j++) {
+        if (game_board[j].piece != "" && cordinates_to_check == game_board.cordinates) {
+          return false
+        } else if (game_board[j].piece != "" && cordinates_to_check == game_board.cordinates && attacking == true) {
+          return true
+        } else if (game_board[j].piece != "" && spot_to_move_to == game_board.cordinates) {
+          return true
+        }
+      }
+    }
+  }
+
+
+  if (piece_to_check.cordinates.y == spot_to_move_to.y) {
+    let cordinate_difference = Math.max(piece_to_check.cordinates.x, spot_to_move_to.x) - Math.min(piece_to_check.cordinates.x, spot_to_move_to.x)
+    for (let i = 0; i < cordinate_difference; i++) {
+
+      if (piece_to_check.cordinates.y < spot_to_move_to.y) {
+        cordinates_to_check.x = cordinates_to_check.x + 1
+      } else if (piece_to_check.cordinates.y > spot_to_move_to.y) {
+        cordinates_to_check.x = cordinates_to_check.x - 1
+      }
+
+      for (let j = 0; j < game_board.length; j++) {
+        if (game_board[j].piece != "" && cordinates_to_check == game_board.cordinates) {
+          return false
+        } else if (game_board[j].piece != "" && cordinates_to_check == game_board.cordinates && attacking == true) {
+          return true
+        } else if (game_board[j].piece != "" && spot_to_move_to == game_board.cordinates) {
+          return true
+        }
+      }
+    }
+  }
+}
+
+function determineLegalKingMove(piece_to_check, spot_to_move_to) {
+  if (spot_to_move_to.x == piece_to_check.cordinates.x + 1 || spot_to_move_to.x == piece_to_check.cordinates.x - 1) {
+    if (spot_to_move_to.y == piece_to_check.cordinates.y - 1 || spot_to_move_to.y == piece_to_check.cordinates.y + 1) {
+      return true
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
+}
+
+function determineLegalBishopMove(piece_to_check, spot_to_move_to, attacking) {
+  let cordinate_difference_x = Math.max(piece_to_check.cordinates.x, spot_to_move_to.x) - Math.min(piece_to_check.cordinates.x, spot_to_move_to.x)
+  let cordinate_difference_y = Math.max(piece_to_check.cordinates.y, spot_to_move_to.y) - Math.min(piece_to_check.cordinates.y, spot_to_move_to.y)
+
+  if (cordinate_difference_x != cordinate_difference_y) {
+    return false
+  } else {
+    if (piece_to_check.cordinates.x > spot_to_move_to.x) {
+      if (piece_to_check.cordinates.y > spot_to_move_to.y) {
+        let y_change = -1
+        let x_change = -1
+      } else {
+        let y_change = 1
+        let x_change = -1
+      }
+    } else {
+      if (piece_to_check.cordinates.y > spot_to_move_to.y) {
+        let y_change = -1
+        let x_change = 1
+      } else {
+        let y_change = 1
+        let x_change = 1
+      }
+    }
+
+    let possible_cordinates = { x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y }
+
+    for (let i = 0; i < cordinate_difference_y; i++) {
+      possible_cordinates.x = possible_cordinates.x + x_change
+      possible_cordinates.y = possible_cordinates.y + y_change
+      for (let j = 0; j < game_board.length; j++) {
+        if (game_board[j].piece != "" && game_board[j].cordinates.x == possible_cordinates.x && game_board[j].cordinates.y == possible_cordinates.y) {
+          return false
+        }
+      }
+    }
+    return true
+  }
+}
+
 async function sendMoveToDB(session_token) {
   try {
     console.log(session_token);
