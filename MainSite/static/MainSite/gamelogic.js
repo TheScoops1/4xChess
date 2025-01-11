@@ -555,6 +555,32 @@ function determineLegalMoves(moves_to_check, piece_to_check_current_cordiantes) 
 
 function determineLegalMove(piece_to_check, spot_to_move_to) {
 
+  let legal_move_check = false
+  if (piece_to_check.piece == "pawn") {
+    legal_move_check = determineLegalPawnMove(piece_to_check, spot_to_move_to)
+  }
+
+  if (piece_to_check.piece == "queen") {
+    legal_move_check = determineLegalQueenMove(piece_to_check, spot_to_move_to)
+  }
+
+  if (piece_to_check.piece == "king") {
+    legal_move_check = determineLegalKingMove(piece_to_check, spot_to_move_to)
+  }
+
+  if (piece_to_check.piece == "rook") {
+    legal_move_check = determineLegalRookMove(piece_to_check, spot_to_move_to)
+  }
+
+  if (piece_to_check.piece == "knight") {
+    legal_move_check = determineLegalKnightMove(piece_to_check, spot_to_move_to)
+  }
+
+  if (piece_to_check.piece == "bishop") {
+    legal_move_check = determineLegalBishopMove(piece_to_check, spot_to_move_to)
+  }
+
+  return legal_move_check
 }
 
 function determineLegalPawnMove(piece_to_check, spot_to_move_to) {
