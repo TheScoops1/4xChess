@@ -830,21 +830,23 @@ function determineLegalBishopMove(piece_to_check, spot_to_move_to, attacking) {
   if (cordinate_difference_x != cordinate_difference_y) {
     return false
   } else {
+    let x_change = 0
+    let y_change = 0
     if (piece_to_check.cordinates.x > spot_to_move_to.x) {
       if (piece_to_check.cordinates.y > spot_to_move_to.y) {
-        let y_change = -1
-        let x_change = -1
+        y_change = -1
+        x_change = -1
       } else {
-        let y_change = 1
-        let x_change = -1
+        y_change = 1
+        x_change = -1
       }
     } else {
       if (piece_to_check.cordinates.y > spot_to_move_to.y) {
-        let y_change = -1
-        let x_change = 1
+        y_change = -1
+        x_change = 1
       } else {
-        let y_change = 1
-        let x_change = 1
+        y_change = 1
+        x_change = 1
       }
     }
 
