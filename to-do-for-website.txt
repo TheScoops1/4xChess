@@ -1,0 +1,53 @@
+
+Front end stuff
+
+1. Game_page stuff
+  a. Add a possible moves list/check - inprogress
+  b. prevent a piece from moving in a spot that is blocked - inprogress
+  c. add a turn order check - Completed
+  d. add html element menu that lists game info - Completed 
+  e. add capture functionality - Completed
+  f. Add http interactions with DB to update game_session - completed
+  g. Add Http call to custom view that creates the game_session in DB - Completed
+  h. Add html element in game menu to say "not possible move"
+  i. Add HTMl elemet to show current selected piece
+  j. Add HTML element to show current possible moves ?
+  k. Add 
+
+2. Account creation page stuff
+  a. add an automatic redirect in the account_created page that takes the user to the login page, as well as include static links to main page and login page
+  b. make it pretty
+
+3. Account settings page
+  a. Create the page itself
+  b. Include the link to the page somewhere
+  c. Include ability to change password, user name, and any other account settings
+
+4. Change password page
+  a. Make the page itself
+  b. Put behind Email containing the url
+
+Back end stuff
+
+1. Create a login session model - Completed
+
+2. Create Game session model - Completed
+  a. Create last action timer fucntionalty
+  b. Delete game session once last action timer hits 30 mins
+  c. Link Delete game session to button in Game pages
+  d. Remove game_session query and use something else
+  e. put game uuid after game_session uuid in url
+
+3. Forms
+  a. for login - Completed
+  b. for account creation - Completed
+  c. for account settings
+  d. For changing password
+
+4. Login session token things
+  a. Create versions for each view for behind the session token - Completed
+  b. Hide game-page behind session token otherwsie put account login in front of game_page - Completed
+  c. Create utility functionality that will delte sessions and then force users to relogin
+
+
+

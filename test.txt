@@ -1,0 +1,33 @@
+
+
+
+'{
+  'game_board': {
+    row_1: {
+      column_1: {
+          game_piece: 'black_rook',
+          spot_color: 'white',
+          },
+      column_2: {
+          game_piece: 'black_knight',
+          spot_color: 'black',
+        },
+    }
+    row_2: {
+      column_1: {
+          game_piece: 'black_rook',
+          spot_color: 'white',
+      },
+      column_2: {
+        game_piece: 'black_knight',
+        spot_color: 'black',
+      },
+    }
+  },
+  'creator_id': '2185719834',
+  'player_points': {
+    'player_0': '100',
+    'player_1': '100'
+  },
+  'last_player': '0',
+}'
