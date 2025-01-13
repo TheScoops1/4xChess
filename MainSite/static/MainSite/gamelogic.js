@@ -241,20 +241,24 @@ function determineLegalPawnMove(piece_to_check, spot_to_move_to) {
 }
 
 function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
+  let return_bool = false
   if (spot_to_move_to.x < piece_to_check.cordinates.x && spot_to_move_to.y < piece_to_check.cordinates.y) {
     let cordinates_to_check = { x: spot_to_move_to.x, y: spot_to_move_to.y }
     for (let i = 0; i <= game_board.length; i++) {
       if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.x == cordinates_to_check.y && attacking == false && game_board[i].piece == "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && attacking == true && game_board[i] != "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
         attacking = false
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && game_board[i].piece != "") {
-        return false
+        return_bool = false
+        i = game_board.length + 1
       }
-      return true
+      return return_bool
     }
   }
 
@@ -264,14 +268,17 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
       if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.x == cordinates_to_check.y && attacking == false && game_board[i].piece == "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && attacking == true && game_board[i] != "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
         attacking = false
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && game_board[i].piece != "") {
-        return false
+        return_bool = false
+        i = game_board.length + 1
       }
-      return true
+      return return_bool
     }
   }
 
@@ -281,14 +288,17 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
       if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.x == cordinates_to_check.y && attacking == false && game_board[i].piece == "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && attacking == true && game_board[i] != "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
         attacking = false
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && game_board[i].piece != "") {
-        return false
+        return_bool = false
+        i = game_board.length + 1
       }
-      return true
+      return return_bool
     }
   }
 
@@ -298,14 +308,17 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
       if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.x == cordinates_to_check.y && attacking == false && game_board[i].piece == "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && attacking == true && game_board[i] != "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
         attacking = false
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && game_board[i].piece != "") {
-        return false
+        return_bool = false
+        i = game_board.length + 1
       }
-      return true
+      return return_bool
     }
   }
 
@@ -315,14 +328,17 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
       if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.x == cordinates_to_check.y && attacking == false && game_board[i].piece == "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && attacking == true && game_board[i] != "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
         attacking = false
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && game_board[i].piece != "") {
-        return false
+        return_bool = false
+        i = game_board.length + 1
       }
-      return true
+      return return_bool
     }
   }
 
@@ -332,14 +348,17 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
       if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.x == cordinates_to_check.y && attacking == false && game_board[i].piece == "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && attacking == true && game_board[i] != "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
         attacking = false
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && game_board[i].piece != "") {
-        return false
+        return_bool = false
+        i = game_board.length + 1
       }
-      return true
+      return return_bool
     }
   }
 
@@ -349,14 +368,17 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
       if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.x == cordinates_to_check.y && attacking == false && game_board[i].piece == "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && attacking == true && game_board[i] != "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
         attacking = false
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && game_board[i].piece != "") {
-        return false
+        return_bool = false
+        i = game_board.length + 1
       }
-      return true
+      return return_bool
     }
   }
 
@@ -366,14 +388,17 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
       if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.x == cordinates_to_check.y && attacking == false && game_board[i].piece == "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && attacking == true && game_board[i] != "") {
         cordinates_to_check.x = cordinates_to_check.x - 1
         cordinates_to_check.y = cordinates_to_check.y - 1
         attacking = false
+        return_bool = true
       } else if (game_board[i].cordinates.x == cordinates_to_check.x && game_board[i].cordinates.y == cordinates_to_check.y && game_board[i].piece != "") {
-        return false
+        return_bool = false
+        i = game - board.length + 1
       }
-      return true
+      return return_bool
     }
   }
 }
@@ -670,7 +695,7 @@ function whereToMove(spot_to_move_to, session_token) {
   spot_to_move_to_HTML_element.append(piece_to_move_HTML_element)
   spot_to_move_to_HTML_element.onclick = ''
 
-  let spot_moved_from_HTML_element = document.getElementsByClassName("column_" + piece_to_move.position.x + " row_" + piece_to_move.position.y)[0]
+  let spot_moved_from_HTML_element = document.getElementsByClassName("column_" + piece_to_move.cordinates.x + " row_" + piece_to_move.cordinates.y)[0]
   let class_name = spot_moved_from_HTML_element.className
 
   let x_position_for_spot_moved_from = spot_moved_from_HTML_element.className[7]
@@ -680,8 +705,8 @@ function whereToMove(spot_to_move_to, session_token) {
   piece_to_move_HTML_element = null
 
 
-  game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.x = spot_to_move_to.x
-  game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].position.y = spot_to_move_to.y
+  game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].cordinates.x = spot_to_move_to.x
+  game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].cordinates.y = spot_to_move_to.y
 
 
   piece_to_move = null
