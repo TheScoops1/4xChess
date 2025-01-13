@@ -404,13 +404,13 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
 }
 
 function determineLegalKnightMove(piece_to_check, spot_to_move_to, attacking) {
-  let correct_possible_cordinates = { x: piece_to_check.cordinates.x + 1, y: piece_to_check.cordinates.y - 3 }
+  let correct_possible_cordinates = { x: piece_to_check.cordinates.x + 1, y: piece_to_check.cordinates.y - 2 }
 
   if (spot_to_move_to.x == correct_possible_cordinates.x && spot_to_move_to.y == correct_possible_cordinates.y) {
     return true
   }
 
-  correct_possible_cordinates = { x: piece_to_check.cordinates.x + 3, y: piece_to_check.cordinates.y - 1 }
+  correct_possible_cordinates = { x: piece_to_check.cordinates.x + 2, y: piece_to_check.cordinates.y - 1 }
 
   if (spot_to_move_to.x == correct_possible_cordinates.x && spot_to_move_to.y == correct_possible_cordinates.y) {
     return true
@@ -422,34 +422,34 @@ function determineLegalKnightMove(piece_to_check, spot_to_move_to, attacking) {
     return true
   }
 
-  correct_possible_cordinates = { x: piece_to_check.cordinates.x + 1, y: piece_to_check.cordinates.y + 3 }
+  correct_possible_cordinates = { x: piece_to_check.cordinates.x + 1, y: piece_to_check.cordinates.y + 2 }
 
   if (spot_to_move_to.x == correct_possible_cordinates.x && spot_to_move_to.y == correct_possible_cordinates.y) {
     return true
   }
 
-  correct_possible_cordinates = { x: piece_to_check.cordinates.x - 1, y: piece_to_check.cordinates.y + 3 }
-
-  if (spot_to_move_to.x == correct_possible_cordinates.x && spot_to_move_to.y == correct_possible_cordinates.y) {
-    return true
-  }
-
-
-  correct_possible_cordinates = { x: piece_to_check.cordinates.x - 3, y: piece_to_check.cordinates.y + 1 }
+  correct_possible_cordinates = { x: piece_to_check.cordinates.x - 1, y: piece_to_check.cordinates.y + 2 }
 
   if (spot_to_move_to.x == correct_possible_cordinates.x && spot_to_move_to.y == correct_possible_cordinates.y) {
     return true
   }
 
 
-  correct_possible_cordinates = { x: piece_to_check.cordinates.x - 3, y: piece_to_check.cordinates.y - 1 }
+  correct_possible_cordinates = { x: piece_to_check.cordinates.x - 2, y: piece_to_check.cordinates.y + 1 }
 
   if (spot_to_move_to.x == correct_possible_cordinates.x && spot_to_move_to.y == correct_possible_cordinates.y) {
     return true
   }
 
 
-  correct_possible_cordinates = { x: piece_to_check.cordinates.x - 1, y: piece_to_check.cordinates.y - 3 }
+  correct_possible_cordinates = { x: piece_to_check.cordinates.x - 2, y: piece_to_check.cordinates.y - 1 }
+
+  if (spot_to_move_to.x == correct_possible_cordinates.x && spot_to_move_to.y == correct_possible_cordinates.y) {
+    return true
+  }
+
+
+  correct_possible_cordinates = { x: piece_to_check.cordinates.x - 1, y: piece_to_check.cordinates.y - 2 }
 
   if (spot_to_move_to.x == correct_possible_cordinates.x && spot_to_move_to.y == correct_possible_cordinates.y) {
     return true
