@@ -20,7 +20,7 @@ function startGame(session_token) {
       game_piece = {
         color: "",
         piece: "",
-        position: "",
+        cordinates: "",
         point_value: 0,
         piece_count: 0,
         first_turn: true
@@ -30,7 +30,7 @@ function startGame(session_token) {
         game_piece.color = "black";
         if (j == 0 || j == 7) {
           game_piece.piece = "rook";
-          game_piece.position = { x: j, y: 0 };
+          game_piece.cordinates = { x: j, y: 0 };
           game_piece.point_value = 5;
           if (j == 0) {
             game_piece.piece_count = 0
@@ -41,7 +41,7 @@ function startGame(session_token) {
         }
         if (j == 1 || j == 6) {
           game_piece.piece = "knight";
-          game_piece.position = { x: j, y: 0 };
+          game_piece.cordinates = { x: j, y: 0 };
           game_piece.point_value = 3;
           if (j == 1) {
             game_piece.piece_count = 0
@@ -52,7 +52,7 @@ function startGame(session_token) {
         }
         if (j == 2 || j == 5) {
           game_piece.piece = "bishop";
-          game_piece.position = { x: j, y: 0 };
+          game_piece.cordinates = { x: j, y: 0 };
           game_piece.point_value = 3;
           if (j == 2) {
             game_piece.piece_count = 0
@@ -63,18 +63,18 @@ function startGame(session_token) {
         }
         if (j == 3) {
           game_piece.piece = "queen";
-          game_piece.position = { x: j, y: 0 };
+          game_piece.cordinates = { x: j, y: 0 };
           game_piece.point_value = 10;
         }
         if (j == 4) {
           game_piece.piece = "king";
-          game_piece.position = { x: j, y: 0 };
+          game_piece.cordinates = { x: j, y: 0 };
           game_piece.point_value = 0;
         }
         if (j > 7) {
           let h = j - 8
           game_piece.piece = "pawn";
-          game_piece.position = { x: h, y: 1 };
+          game_piece.cordinates = { x: h, y: 1 };
           game_piece.point_value = 1;
           game_piece.piece_count = h
         }
@@ -84,7 +84,7 @@ function startGame(session_token) {
         game_piece.color = "white"
         if (j == 0 || j == 7) {
           game_piece.piece = "rook"
-          game_piece.position = { x: j, y: 7 }
+          game_piece.cordinates = { x: j, y: 7 }
           game_piece.point_value = 5
           if (j == 0) {
             game_piece.piece_count = 0
@@ -95,7 +95,7 @@ function startGame(session_token) {
         }
         if (j == 1 || j == 6) {
           game_piece.piece = "knight"
-          game_piece.position = { x: j, y: 7 }
+          game_piece.cordinates = { x: j, y: 7 }
           game_piece.point_value = 3
           if (j == 1) {
             game_piece.piece_count = 0
@@ -106,7 +106,7 @@ function startGame(session_token) {
         }
         if (j == 2 || j == 5) {
           game_piece.piece = "bishop"
-          game_piece.position = { x: j, y: 7 }
+          game_piece.cordinates = { x: j, y: 7 }
           game_piece.point_value = 3
           if (j == 2) {
             game_piece.piece_count = 0
@@ -117,18 +117,18 @@ function startGame(session_token) {
         }
         if (j == 4) {
           game_piece.piece = "queen"
-          game_piece.position = { x: j, y: 7 }
+          game_piece.cordinates = { x: j, y: 7 }
           game_piece.point_value = 10
         }
         if (j == 3) {
           game_piece.piece = "king"
-          game_piece.position = { x: j, y: 7 }
+          game_piece.cordinates = { x: j, y: 7 }
           game_piece.point_value = 0
         }
         if (j > 7) {
           let h = j - 8
           game_piece.piece = "pawn"
-          game_piece.position = { x: h, y: 6 }
+          game_piece.cordinates = { x: h, y: 6 }
           game_piece.point_value = 1
           game_piece.piece_count = h
         }
@@ -988,7 +988,6 @@ function pieceToMove(name_of_piece, session_token) {
   if (piece_to_move == null) {
     piece_to_move = game_pieces[name_of_piece]
 
-    console.log(checkPossibleMoves(piece_to_move))
 
     if (turn_ident == true) {
       if (piece_to_move.color == "white") {
@@ -1003,7 +1002,6 @@ function pieceToMove(name_of_piece, session_token) {
     }
   } else if (piece_to_move.color == game_pieces[name_of_piece].color) {
     piece_to_move = game_pieces[name_of_piece]
-    console.log(checkPossibleMoves(piece_to_move))
   } else {
     piece_to_attack = game_pieces[name_of_piece]
     whereToMove({ class: "column_" + piece_to_attack.position.x + " row_" + piece_to_attack.position.y }, session_token)
@@ -1014,6 +1012,8 @@ function whereToMove(spot_to_move_to, session_token) {
 
   let piece_to_move_HTML_element = document.getElementsByClassName(piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count)[0]
   let spot_to_move_to_HTML_element = document.getElementsByClassName(spot_to_move_to.class)[0]
+
+  console.log(determineLegalMove(piece_to_move, spot_to_move_to))
 
   if (piece_to_attack == null) {
   } else {
