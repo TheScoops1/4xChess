@@ -239,6 +239,7 @@ function determineLegalPawnMove(piece_to_check, spot_to_move_to) {
 
   return legal_moves_to_return
 }
+module.exports = determineLegalPawnMove
 
 function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
   let return_bool = false
@@ -402,6 +403,7 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
     }
   }
 }
+module.exports = determineLegalQueenMove
 
 function determineLegalKnightMove(piece_to_check, spot_to_move_to) {
   let correct_possible_cordinates = { x: piece_to_check.cordinates.x + 1, y: piece_to_check.cordinates.y - 2 }
@@ -506,6 +508,7 @@ function determineLegalRookMove(piece_to_check, spot_to_move_to, attacking) {
     }
   }
 }
+module.exports = determineLegalRookMove
 
 function determineLegalKingMove(piece_to_check, spot_to_move_to) {
   if (spot_to_move_to.x == piece_to_check.cordinates.x + 1 || spot_to_move_to.x == piece_to_check.cordinates.x - 1) {
@@ -518,6 +521,7 @@ function determineLegalKingMove(piece_to_check, spot_to_move_to) {
     return false
   }
 }
+module.exports = determineLegalKingMove
 
 function determineLegalBishopMove(piece_to_check, spot_to_move_to, attacking) {
   let cordinate_difference_x = Math.max(piece_to_check.cordinates.x, spot_to_move_to.x) - Math.min(piece_to_check.cordinates.x, spot_to_move_to.x)
@@ -560,6 +564,7 @@ function determineLegalBishopMove(piece_to_check, spot_to_move_to, attacking) {
     return true
   }
 }
+module.exports = determineLegalBishopMove
 
 async function sendMoveToDB(session_token) {
   try {

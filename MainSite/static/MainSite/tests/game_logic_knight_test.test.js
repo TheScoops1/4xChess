@@ -1,5 +1,5 @@
 
-const determineLegalKnightMove = require("./gamelogic");
+const determineLegalKnightMove = require("../gamelogic");
 
 
 let white_knight_zero = {
