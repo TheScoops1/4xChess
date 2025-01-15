@@ -14,7 +14,7 @@ let white_bishop_zero = {
 for (let i = 0; i < 8; i++) {
   for (let j = 0; j < 8; j++) {
     test('Checks determineLegalBishopMoves', () => {
-      expect(game_logic.determineLegalBishopMove(white_bishop_zero, { x: j, y: i })).toBe(true);
+      expect(game_logic.determineLegalBishopMove(white_bishop_zero, { x: j, y: i }), false).toBe(true);
     })
   }
 }

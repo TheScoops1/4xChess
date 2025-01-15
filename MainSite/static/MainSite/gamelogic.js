@@ -231,18 +231,20 @@ function determineLegalMove(piece_to_check, spot_to_move_to) {
 }
 
 function determineLegalPawnMove(piece_to_check, spot_to_move_to) {
-  let legal_moves_to_return = []
 
   if (piece_to_check.first_turn == true) {
-    legal_moves_to_return.push({ x: piece_to_check.cordinates.x + 1, y: piece_to_check.cordinates.y + 1 })
-    legal_moves_to_return.push({ x: piece_to_check.cordinates.x + 2, y: piece_to_check.cordinates.y + 2 })
-  } else if (piece_to_check.first_turn == false) {
-    legal_moves_to_return.push({ x: piece_to_check.cordinates.x + 1, y: piece_to_check.cordinates.y + 1 })
+    if (piece_to_check.cordinates.x + 1 == spot_to_move_to.x && piece_to_check.cordinates.y + 1 == spot_to_move_to.y) {
+      return true
+    } else if (piece_to_check.cordinates.x + 2 == spot_to_move_to.x && piece_to_check.cordinates.y + 2 == spot_to_move_to.y)
+      return true
+  } else {
+    if (piece_to_check.cordinates.x + 1 == spot_to_move_to.x && piece_to_check.cordinates.y + 1 == spot_to_move_to.y) {
+      return true
+    }
   }
 
-  return legal_moves_to_return
+  return false
 }
-module.exports = determineLegalPawnMove
 
 function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
   let return_bool = false
