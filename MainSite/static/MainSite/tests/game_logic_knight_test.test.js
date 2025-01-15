@@ -1,5 +1,5 @@
 
-const determineLegalKnightMove = require("../gamelogic");
+const game_logic = require("../gamelogic");
 
 
 let white_knight_zero = {
@@ -14,7 +14,7 @@ let white_knight_zero = {
 for (let i = 0; i < 8; i++) {
   for (let j = 0; j < 8; j++) {
     test('Checks determineLegalKnightMoves', () => {
-      expect(determineLegalKnightMove(white_knight_zero, { x: j, y: i })).toBe(true);
+      expect(game_logic.determineLegalKnightMove(white_knight_zero, { x: j, y: i })).toBe(true);
     })
   }
 }

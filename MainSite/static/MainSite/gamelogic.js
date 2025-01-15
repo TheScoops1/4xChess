@@ -11,7 +11,7 @@ let turn_ident = true
 let whitePointCounter = 0
 let blackPointCounter = 0
 
-function startGame(session_token) {
+function startGame(session_token, test) {
 
   for (let i = 0; i < 2; i++) {
     for (let j = 0; j < 16; j++) {
@@ -175,8 +175,11 @@ function startGame(session_token) {
       game_board.push(board_position);
     }
   }
-  console.log(game_pieces)
-  createGameSession(session_token)
+  if (test == true) {
+  } else {
+    console.log(game_pieces)
+    createGameSession(session_token)
+  }
 }
 
 function getCookie(name) {
@@ -459,7 +462,6 @@ function determineLegalKnightMove(piece_to_check, spot_to_move_to) {
 
   return false
 }
-module.exports = determineLegalKnightMove
 
 function determineLegalRookMove(piece_to_check, spot_to_move_to, attacking) {
   let cordinates_to_check = { x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y }
@@ -508,7 +510,6 @@ function determineLegalRookMove(piece_to_check, spot_to_move_to, attacking) {
     }
   }
 }
-module.exports = determineLegalRookMove
 
 function determineLegalKingMove(piece_to_check, spot_to_move_to) {
   if (spot_to_move_to.x == piece_to_check.cordinates.x + 1 || spot_to_move_to.x == piece_to_check.cordinates.x - 1) {
@@ -521,7 +522,6 @@ function determineLegalKingMove(piece_to_check, spot_to_move_to) {
     return false
   }
 }
-module.exports = determineLegalKingMove
 
 function determineLegalBishopMove(piece_to_check, spot_to_move_to, attacking) {
   let cordinate_difference_x = Math.max(piece_to_check.cordinates.x, spot_to_move_to.x) - Math.min(piece_to_check.cordinates.x, spot_to_move_to.x)
@@ -564,7 +564,8 @@ function determineLegalBishopMove(piece_to_check, spot_to_move_to, attacking) {
     return true
   }
 }
-module.exports = determineLegalBishopMove
+
+module.exports = { determineLegalKnightMove, determineLegalBishopMove, determineLegalKingMove, determineLegalRookMove, determineLegalQueenMove, determineLegalPawnMove, startGame }
 
 async function sendMoveToDB(session_token) {
   try {
