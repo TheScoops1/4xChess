@@ -408,7 +408,6 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
     }
   }
 }
-module.exports = determineLegalQueenMove
 
 function determineLegalKnightMove(piece_to_check, spot_to_move_to) {
   let correct_possible_cordinates = { x: piece_to_check.cordinates.x + 1, y: piece_to_check.cordinates.y - 2 }
@@ -514,13 +513,17 @@ function determineLegalRookMove(piece_to_check, spot_to_move_to, attacking) {
 }
 
 function determineLegalKingMove(piece_to_check, spot_to_move_to) {
-  if (spot_to_move_to.x == piece_to_check.cordinates.x + 1 || spot_to_move_to.x == piece_to_check.cordinates.x - 1) {
-    if (spot_to_move_to.y == piece_to_check.cordinates.y - 1 || spot_to_move_to.y == piece_to_check.cordinates.y + 1) {
+  if (spot_to_move_to.x == piece_to_check.cordinates.x && spot_to_move_to.y == piece_to_check.cordinates.y) {
+  } else if (spot_to_move_to.x == (piece_to_check.cordinates.x + 1) || spot_to_move_to.x == (piece_to_check.cordinates.x - 1) || spot_to_move_to.x == piece_to_check.cordinates.x) {
+    if (spot_to_move_to.y == (piece_to_check.cordinates.y + 1) || spot_to_move_to.y == (piece_to_check.cordinates.y - 1) || spot_to_move_to.y == piece_to_check.cordinates.y) {
+      console.log("passed on cordinates @ ", spot_to_move_to)
       return true
     } else {
+      console.log("failed on cordinates @ ", spot_to_move_to)
       return false
     }
   } else {
+    console.log("failed on cordinates @ ", spot_to_move_to)
     return false
   }
 }
