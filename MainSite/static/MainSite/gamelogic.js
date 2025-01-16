@@ -516,14 +516,11 @@ function determineLegalKingMove(piece_to_check, spot_to_move_to) {
   if (spot_to_move_to.x == piece_to_check.cordinates.x && spot_to_move_to.y == piece_to_check.cordinates.y) {
   } else if (spot_to_move_to.x == (piece_to_check.cordinates.x + 1) || spot_to_move_to.x == (piece_to_check.cordinates.x - 1) || spot_to_move_to.x == piece_to_check.cordinates.x) {
     if (spot_to_move_to.y == (piece_to_check.cordinates.y + 1) || spot_to_move_to.y == (piece_to_check.cordinates.y - 1) || spot_to_move_to.y == piece_to_check.cordinates.y) {
-      console.log("passed on cordinates @ ", spot_to_move_to)
       return true
     } else {
-      console.log("failed on cordinates @ ", spot_to_move_to)
       return false
     }
   } else {
-    console.log("failed on cordinates @ ", spot_to_move_to)
     return false
   }
 }
@@ -560,198 +557,205 @@ function determineLegalBishopMove(piece_to_check, spot_to_move_to, attacking) {
     for (let i = 0; i < cordinate_difference_y; i++) {
       possible_cordinates.x = possible_cordinates.x + x_change
       possible_cordinates.y = possible_cordinates.y + y_change
-      for (let j = 0; j < game_board.length; j++) {
-        if (game_board[j].piece != "" && game_board[j].cordinates.x == possible_cordinates.x && game_board[j].cordinates.y == possible_cordinates.y) {
-          return false
+      if (determineIfSpotHasPiece({ x: possible_cordinates.x, y: possible_cordinates.y })) {
+        return false
+      }
+    }
+  }
+  return true
+}
+
+function determineIfSpotHasPiece(spot_to_move_to, attacking) {
+  for (let i = 0; i < game_board.length; i++) {
+    if (game_board[i].piece != "" && spot_to_move_to.x == game_board.cordinates.x && spot_to_move_to.y == game_board.cordinates.y) {
+      return true
+    } else if (game_board[i].piece != "" && spot_to_move_to.x == game_board.cordinates.x && spot_to_move_to.y == game_board.cordinates.y && attacking == true) {
+    }
+    return false
+  }
+
+  module.exports = { determineLegalKnightMove, determineLegalBishopMove, determineLegalKingMove, determineLegalRookMove, determineLegalQueenMove, determineLegalPawnMove, startGame }
+
+  async function sendMoveToDB(session_token) {
+    try {
+      console.log(session_token);
+      console.log(game_board);
+      console.log(JSON.stringify(game_board))
+      const response = await fetch('/' + String(session_token) + '/test/',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify(game_board)
+        });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log(data.test, ' Test was succesful');
+
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }
+
+  async function testGatherGameSession(session_token) {
+    try {
+      const response = await fetch('/' + String(session_token) + '/gather_game_session/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }
+
+  async function createGameSession(session_token) {
+    try {
+      const response = await fetch('/' + String(session_token) + '/create_game_session/',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify(game_pieces)
+        });
+      if (!response.ok) {
+        throw new Error('Network response was not okay');
+      }
+
+      const data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.log('Error:', error)
+    }
+  }
+
+  async function updateGameBoard(session_token) {
+    try {
+      const response = await fetch('/' + String(session_token) + "/update_game_board/",
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify(game_pieces)
+        });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log(data)
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }
+
+  function pieceToMove(name_of_piece, session_token) {
+    if (piece_to_move == null) {
+      piece_to_move = game_pieces[name_of_piece]
+
+
+      if (turn_ident == true) {
+        if (piece_to_move.color == "white") {
+        } else {
+          piece_to_move = null
+        }
+      } else {
+        if (piece_to_move.color == "black") {
+        } else {
+          piece_to_move = null
         }
       }
+    } else if (piece_to_move.color == game_pieces[name_of_piece].color) {
+      piece_to_move = game_pieces[name_of_piece]
+    } else {
+      piece_to_attack = game_pieces[name_of_piece]
+      whereToMove({ class: "column_" + piece_to_attack.position.x + " row_" + piece_to_attack.position.y }, session_token)
     }
-    return true
   }
-}
 
-module.exports = { determineLegalKnightMove, determineLegalBishopMove, determineLegalKingMove, determineLegalRookMove, determineLegalQueenMove, determineLegalPawnMove, startGame }
+  function whereToMove(spot_to_move_to, session_token) {
 
-async function sendMoveToDB(session_token) {
-  try {
-    console.log(session_token);
-    console.log(game_board);
-    console.log(JSON.stringify(game_board))
-    const response = await fetch('/' + String(session_token) + '/test/',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: JSON.stringify(game_board)
-      });
+    let piece_to_move_HTML_element = document.getElementsByClassName(piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count)[0]
+    let spot_to_move_to_HTML_element = document.getElementsByClassName(spot_to_move_to.class)[0]
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    console.log(determineLegalMove(piece_to_move, spot_to_move_to))
+
+    if (piece_to_attack == null) {
+    } else {
+      console.log(spot_to_move_to_HTML_element.firstElementChild)
+      spot_to_move_to_HTML_element.removeChild(spot_to_move_to_HTML_element.firstElementChild)
+
+      delete game_pieces[piece_to_attack.color + " " + piece_to_attack.piece + " " + piece_to_attack.piece_count]
     }
 
-    const data = await response.json();
-    console.log(data.test, ' Test was succesful');
+    spot_to_move_to_HTML_element.append(piece_to_move_HTML_element)
+    spot_to_move_to_HTML_element.onclick = ''
 
-  } catch (error) {
-    console.log('Error:', error);
-  }
-}
+    let spot_moved_from_HTML_element = document.getElementsByClassName("column_" + piece_to_move.cordinates.x + " row_" + piece_to_move.cordinates.y)[0]
+    let class_name = spot_moved_from_HTML_element.className
 
-async function testGatherGameSession(session_token) {
-  try {
-    const response = await fetch('/' + String(session_token) + '/gather_game_session/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken')
-      }
-    });
+    let x_position_for_spot_moved_from = spot_moved_from_HTML_element.className[7]
+    let y_spot_for_spot_moved_from = spot_moved_from_HTML_element.className[13]
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    spot_moved_from_HTML_element.onclick = function () { whereToMove({ 'class': class_name, 'x': Number(x_position_for_spot_moved_from), 'y': Number(y_spot_for_spot_moved_from) }, session_token) }
+    piece_to_move_HTML_element = null
+
+
+    game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].cordinates.x = spot_to_move_to.x
+    game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].cordinates.y = spot_to_move_to.y
+
+
+    piece_to_move = null
+    piece_to_attack = null
+    if (turn_ident == true) {
+      turn_ident = false
+    } else {
+      turn_ident = true
     }
 
-    const data = await response.json();
-    console.log(data)
-  } catch (error) {
-    console.log('Error:', error);
+    changeTitleHTML()
+
+    updateGameBoard(session_token)
+
   }
-}
 
-async function createGameSession(session_token) {
-  try {
-    const response = await fetch('/' + String(session_token) + '/create_game_session/',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: JSON.stringify(game_pieces)
-      });
-    if (!response.ok) {
-      throw new Error('Network response was not okay');
-    }
+  function changeTitleHTML() {
+    turn_ident_HTML_element = document.getElementsByClassName("turn_ident")[0]
+    white_point_counter_HTML_element = document.getElementsByClassName("white_point_counter")[0]
+    black_point_counter_HTML_element = document.getElementsByClassName("black_point_counter")[0]
 
-    const data = await response.json();
-    console.log(data)
-  } catch (error) {
-    console.log('Error:', error)
-  }
-}
-
-async function updateGameBoard(session_token) {
-  try {
-    const response = await fetch('/' + String(session_token) + "/update_game_board/",
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: JSON.stringify(game_pieces)
-      });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    console.log(data)
-  } catch (error) {
-    console.log('Error:', error);
-  }
-}
-
-function pieceToMove(name_of_piece, session_token) {
-  if (piece_to_move == null) {
-    piece_to_move = game_pieces[name_of_piece]
-
+    console.log(turn_ident_HTML_element)
+    console.log(white_point_counter_HTML_element)
+    console.log(black_point_counter_HTML_element)
 
     if (turn_ident == true) {
-      if (piece_to_move.color == "white") {
-      } else {
-        piece_to_move = null
-      }
+      turn_ident_HTML_element.innerText = "Whites Turn"
     } else {
-      if (piece_to_move.color == "black") {
-      } else {
-        piece_to_move = null
-      }
+      turn_ident_HTML_element.innerText = "Blacks Turn"
     }
-  } else if (piece_to_move.color == game_pieces[name_of_piece].color) {
-    piece_to_move = game_pieces[name_of_piece]
-  } else {
-    piece_to_attack = game_pieces[name_of_piece]
-    whereToMove({ class: "column_" + piece_to_attack.position.x + " row_" + piece_to_attack.position.y }, session_token)
+
+    white_point_counter_HTML_element = String(whitePointCounter)
+    black_point_counter_HTML_element = String(blackPointCounter)
   }
-}
-
-function whereToMove(spot_to_move_to, session_token) {
-
-  let piece_to_move_HTML_element = document.getElementsByClassName(piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count)[0]
-  let spot_to_move_to_HTML_element = document.getElementsByClassName(spot_to_move_to.class)[0]
-
-  console.log(determineLegalMove(piece_to_move, spot_to_move_to))
-
-  if (piece_to_attack == null) {
-  } else {
-    console.log(spot_to_move_to_HTML_element.firstElementChild)
-    spot_to_move_to_HTML_element.removeChild(spot_to_move_to_HTML_element.firstElementChild)
-
-    delete game_pieces[piece_to_attack.color + " " + piece_to_attack.piece + " " + piece_to_attack.piece_count]
-  }
-
-  spot_to_move_to_HTML_element.append(piece_to_move_HTML_element)
-  spot_to_move_to_HTML_element.onclick = ''
-
-  let spot_moved_from_HTML_element = document.getElementsByClassName("column_" + piece_to_move.cordinates.x + " row_" + piece_to_move.cordinates.y)[0]
-  let class_name = spot_moved_from_HTML_element.className
-
-  let x_position_for_spot_moved_from = spot_moved_from_HTML_element.className[7]
-  let y_spot_for_spot_moved_from = spot_moved_from_HTML_element.className[13]
-
-  spot_moved_from_HTML_element.onclick = function () { whereToMove({ 'class': class_name, 'x': Number(x_position_for_spot_moved_from), 'y': Number(y_spot_for_spot_moved_from) }, session_token) }
-  piece_to_move_HTML_element = null
-
-
-  game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].cordinates.x = spot_to_move_to.x
-  game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].cordinates.y = spot_to_move_to.y
-
-
-  piece_to_move = null
-  piece_to_attack = null
-  if (turn_ident == true) {
-    turn_ident = false
-  } else {
-    turn_ident = true
-  }
-
-  changeTitleHTML()
-
-  updateGameBoard(session_token)
-
-}
-
-function changeTitleHTML() {
-  turn_ident_HTML_element = document.getElementsByClassName("turn_ident")[0]
-  white_point_counter_HTML_element = document.getElementsByClassName("white_point_counter")[0]
-  black_point_counter_HTML_element = document.getElementsByClassName("black_point_counter")[0]
-
-  console.log(turn_ident_HTML_element)
-  console.log(white_point_counter_HTML_element)
-  console.log(black_point_counter_HTML_element)
-
-  if (turn_ident == true) {
-    turn_ident_HTML_element.innerText = "Whites Turn"
-  } else {
-    turn_ident_HTML_element.innerText = "Blacks Turn"
-  }
-
-  white_point_counter_HTML_element = String(whitePointCounter)
-  black_point_counter_HTML_element = String(blackPointCounter)
-}
 
 
