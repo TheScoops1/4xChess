@@ -11,11 +11,13 @@ let white_queen_zero = {
   first_turn: true
 }
 
+game_logic.startGame(1, true)
+console.log("Attempting test")
 for (let i = 0; i < 8; i++) {
   for (let j = 0; j < 8; j++) {
-    game_logic.startGame(1, true)
-    test('Checks determineLegalQueenMoves', () => {
+      test('Checks determineLegalQueenMoves', () => {
       expect(game_logic.determineLegalQueenMove(white_queen_zero, { x: j, y: i })).toBe(true);
+      game_logic.startGame(1, true)
     })
   }
 }
