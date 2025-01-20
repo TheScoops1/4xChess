@@ -253,7 +253,14 @@ function determineLegalPawnMove(piece_to_check, spot_to_move_to) {
 function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
   let return_bool = true
   let cordinates_to_check = {x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y}
-  let check_count = Math.max(spot_to_move_to.x, spot_to_move_to.y, piece_to_check.cordinates.x, piece_to_check.cordinates.y) - Math.min(spot_to_move_to.x, spot_to_move_to.y, piece_to_check.cordinates.x, piece_to_check.cordinates.y)
+  let check_count = Number
+
+  if ((cordinates_to_check.x < spot_to_move_to.x && cordinates_to_check.y > spot_to_move_to.y) || (cordinates_to_check.x > spot_to_move_to.x && cordinates_to_check.y < spot_to_move_to.y)){
+    check_count = Math.max(cordinates_to_check.x, spot_to_move_to.x) - Math.min( cordinates_to_check.x, spot_to_move_to.x)
+  } else {
+    check_count = Math.max(spot_to_move_to.x, spot_to_move_to.y, piece_to_check.cordinates.x, piece_to_check.cordinates.y) - Math.min(spot_to_move_to.x, spot_to_move_to.y, piece_to_check.cordinates.x, piece_to_check.cordinates.y)
+  }
+
 
   let same_y_axis_check = false
   let same_x_axis_check = false
@@ -282,7 +289,7 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
       }
     }
 
-    if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece != '' && spot_to_move_to != cordinates_to_check && piece_to_check.piece != game_board[cordinates_to_check.y][cordinates_to_check.x].piece && attacking == false) {
+    if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece != '' && spot_to_move_to != cordinates_to_check && attacking == false){
       console.log("returning false on possible piece")
       return false
     } else if (i == (check_count - 1) && (cordinates_to_check.x != spot_to_move_to.x || cordinates_to_check.y != spot_to_move_to.y)) {
@@ -347,9 +354,12 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
     //   return_bool = true
     // }
   }
-  console.log(return_bool, " on ", cordinates_to_check)
-  return return_bool
-
+  if (spot_to_move_to.x == piece_to_check.cordinates.x && spot_to_move_to.y == piece_to_check.cordinates.y){
+      return false
+  } else {
+    console.log(return_bool, " on ", cordinates_to_check)
+    return return_bool
+  }
 }
 
 function determineLegalKnightMove(piece_to_check, spot_to_move_to) {
