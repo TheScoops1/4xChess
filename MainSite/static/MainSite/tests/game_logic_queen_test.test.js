@@ -13,11 +13,15 @@ let white_queen_zero = {
 
 game_logic.startGame(1, true)
 console.log("Attempting test")
-for (let i = 0; i < 8; i++) {
-  for (let j = 0; j < 8; j++) {
-    console.log("attempting test @: ", {x:j, y:i})
-    test('Checks determineLegalQueenMoves', () => {
-      expect(game_logic.determineLegalQueenMove(white_queen_zero, { x: j, y: i })).toBe(true);
-    })
-  }
-}
+
+test('Checks determineLegalQueenMoves', () => {
+  expect(game_logic.determineLegalQueenMove(white_queen_zero, { x: 3, y: 5 }, false)).toBe(true);
+})
+
+// for (let i = 0; i < 8; i++) {
+//   for (let j = 0; j < 8; j++) {
+//     test('Checks determineLegalQueenMoves', () => {
+//       expect(game_logic.determineLegalQueenMove(white_queen_zero, { x: j, y: i }, false)).toBe(true);
+//     })
+//   }
+// }

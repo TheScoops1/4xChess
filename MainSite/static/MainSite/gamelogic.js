@@ -251,66 +251,103 @@ function determineLegalPawnMove(piece_to_check, spot_to_move_to) {
 }
 
 function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
-  let return_bool = false
+  let return_bool = true
   let cordinates_to_check = {x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y}
-
   let check_count = Math.max(spot_to_move_to.x, spot_to_move_to.y, piece_to_check.cordinates.x, piece_to_check.cordinates.y) - Math.min(spot_to_move_to.x, spot_to_move_to.y, piece_to_check.cordinates.x, piece_to_check.cordinates.y)
 
+  let same_y_axis_check = false
+  let same_x_axis_check = false
 
-  for (let i = 0; i < check_count; i++) {
-    for (let j = 0; j < game_board.length; j++) {
-      console.log(game_board[j].cordinates, " ", cordinates_to_check)
-      if (game_board[j].cordinates.x == cordinates_to_check .x && game_board[j].cordinates.y == cordinates_to_check.y && attacking == false && game_board[j].piece == "") {
-        console.log("checking cordinates: ", cordinates_to_check, " not attacking")
-        if (spot_to_move_to.x == piece_to_check.cordinates.x) {
-        } else {
-          if (spot_to_move_to.x < piece_to_check.cordinates.x) {
-            cordinates_to_check.x = cordinates_to_check.x + 1
-          } else {
-            cordinates_to_check.x = cordinates_to_check.x - 1
-          }
-        }
-
-        if (spot_to_move_to.y == piece_to_check.cordinates.y) {
-        } else {
-          if (spot_to_move_to.y < piece_to_check.cordinates.y) {
-            cordinates_to_check.y = cordinates_to_check.y + 1
-          } else {
-            cordinates_to_check.y = cordinates_to_check.y - 1
-          }
-        }
-
-      } else if (i == 0 && game_board[j].cordinates.x == cordinates_to_check .x && game_board[j].cordinates.y == cordinates_to_check.y && attacking == true && game_board[j].piece != "") {
-        console.log("checking cordinates: ", cordinates_to_check, " attacking")
-        if (spot_to_move_to.x != piece_to_check.cordinates.x) {
-          if (spot_to_move_to.x < piece_to_check.cordinates.x) {
-            cordinates_to_check.x = cordinates_to_check.x + 1
-          } else {
-            cordinates_to_check.x = cordinates_to_check.x - 1
-          }
-        }
-
-        if (spot_to_move_to.y != piece_to_check.cordinates.y) {
-          if (spot_to_move_to.y < piece_to_check.cordinates.y) {
-            cordinates_to_check.y = cordinates_to_check.y + 1
-          } else {
-            cordinates_to_check.y = cordinates_to_check.y - 1
-          }
-        }
-
-        attacking = false
-
-      }
-    }
-    if (i == (check_count - 1) && cordinates_to_check.x != spot_to_move_to.x && cordinates_to_check.y != spot_to_move_to.y){
-      console.log("turning return_bool false")
-      return_bool = false
-    } else if (i == (check_count - 1) && cordinates_to_check.x == spot_to_move_to.x && cordinates_to_check.y == spot_to_move_to.y) {
-      console.log("turning return_bool true")
-      return_bool = true
-    }
+  if (spot_to_move_to.x == cordinates_to_check.x) {
+    same_x_axis_check = true
+  }
+  if (spot_to_move_to.y == cordinates_to_check.y){
+    same_y_axis_check = true
   }
 
+  for (let i = 0; i < check_count; i++) {
+    if (same_x_axis_check == false) {
+      if (spot_to_move_to.x > piece_to_check.cordinates.x) {
+        cordinates_to_check.x = cordinates_to_check.x + 1
+      } else {
+        cordinates_to_check.x = cordinates_to_check.x - 1
+      }
+    }
+
+    if (same_y_axis_check == false) {
+      if (spot_to_move_to.y > piece_to_check.cordinates.y) {
+        cordinates_to_check.y = cordinates_to_check.y + 1
+      } else {
+        cordinates_to_check.y = cordinates_to_check.y - 1
+      }
+    }
+
+    if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece != '' && spot_to_move_to != cordinates_to_check && piece_to_check.piece != game_board[cordinates_to_check.y][cordinates_to_check.x].piece && attacking == false) {
+      console.log("returning false on possible piece")
+      return false
+    } else if (i == (check_count - 1) && (cordinates_to_check.x != spot_to_move_to.x || cordinates_to_check.y != spot_to_move_to.y)) {
+      console.log("turning return_bool false.")
+      return_bool = false
+    } else if (i == (check_count - 1) && (cordinates_to_check.x == spot_to_move_to.x || cordinates_to_check.y == spot_to_move_to.y)) {
+      console.log("turning return_bool true.")
+      return_bool = true
+    }
+
+    console.log(game_board[cordinates_to_check.y][cordinates_to_check.x], " ", cordinates_to_check, " ", spot_to_move_to, " ", piece_to_check.cordinates, " ", check_count, " ", return_bool)
+
+    // for (let j = 0; j < game_board.length; j++) {
+    //   console.log(game_board[j].cordinates, " ", cordinates_to_check)
+    //   if (game_board[j].cordinates.x == cordinates_to_check .x && game_board[j].cordinates.y == cordinates_to_check.y && attacking == false && game_board[j].piece == "") {
+    //     console.log("checking cordinates: ", cordinates_to_check, " not attacking")
+    //     if (spot_to_move_to.x == piece_to_check.cordinates.x) {
+    //     } else {
+    //       if (spot_to_move_to.x < piece_to_check.cordinates.x) {
+    //         cordinates_to_check.x = cordinates_to_check.x + 1
+    //       } else {
+    //         cordinates_to_check.x = cordinates_to_check.x - 1
+    //       }
+    //     }
+    //
+    //     if (spot_to_move_to.y == piece_to_check.cordinates.y) {
+    //     } else {
+    //       if (spot_to_move_to.y < piece_to_check.cordinates.y) {
+    //         cordinates_to_check.y = cordinates_to_check.y + 1
+    //       } else {
+    //         cordinates_to_check.y = cordinates_to_check.y - 1
+    //       }
+    //     }
+    //
+    //   } else if (i == 0 && game_board[j].cordinates.x == cordinates_to_check .x && game_board[j].cordinates.y == cordinates_to_check.y && attacking == true && game_board[j].piece != "") {
+    //     console.log("checking cordinates: ", cordinates_to_check, " attacking")
+    //     if (spot_to_move_to.x != piece_to_check.cordinates.x) {
+    //       if (spot_to_move_to.x < piece_to_check.cordinates.x) {
+    //         cordinates_to_check.x = cordinates_to_check.x + 1
+    //       } else {
+    //         cordinates_to_check.x = cordinates_to_check.x - 1
+    //       }
+    //     }
+    //
+    //     if (spot_to_move_to.y != piece_to_check.cordinates.y) {
+    //       if (spot_to_move_to.y < piece_to_check.cordinates.y) {
+    //         cordinates_to_check.y = cordinates_to_check.y + 1
+    //       } else {
+    //         cordinates_to_check.y = cordinates_to_check.y - 1
+    //       }
+    //     }
+    //
+    //     attacking = false
+    //
+    //   }
+    // }
+    // if (i == (check_count - 1) && cordinates_to_check.x != spot_to_move_to.x && cordinates_to_check.y != spot_to_move_to.y){
+    //   console.log("turning return_bool false")
+    //   return_bool = false
+    // } else if (i == (check_count - 1) && cordinates_to_check.x == spot_to_move_to.x && cordinates_to_check.y == spot_to_move_to.y) {
+    //   console.log("turning return_bool true")
+    //   return_bool = true
+    // }
+  }
+  console.log(return_bool, " on ", cordinates_to_check)
   return return_bool
 
 }
