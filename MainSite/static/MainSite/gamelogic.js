@@ -234,20 +234,41 @@ function determineLegalMove(piece_to_check, spot_to_move_to) {
   return legal_move_check
 }
 
-function determineLegalPawnMove(piece_to_check, spot_to_move_to) {
+function determineLegalPawnMove(piece_to_check, spot_to_move_to, attacking) {
 
-  if (piece_to_check.first_turn == true) {
-    if (piece_to_check.cordinates.x + 1 == spot_to_move_to.x && piece_to_check.cordinates.y + 1 == spot_to_move_to.y) {
-      return true
-    } else if (piece_to_check.cordinates.x + 2 == spot_to_move_to.x && piece_to_check.cordinates.y + 2 == spot_to_move_to.y)
-      return true
-  } else {
-    if (piece_to_check.cordinates.x + 1 == spot_to_move_to.x && piece_to_check.cordinates.y + 1 == spot_to_move_to.y) {
-      return true
+  let cordinates_to_check = {x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y}
+  let return_bool = false
+
+  if (((cordinates_to_check.x + 1) == spot_to_move_to.x || (cordinates_to_check.x - 1) == spot_to_move_to.x) && attacking == true) {
+    if (piece_to_check.color == "black") {
+      if (cordinates_to_check.y + 1 == spot_to_move_to.y) {
+        return_bool = true
+      }
+    } else {
+      if (cordinates_to_check.y - 1 == spot_to_move_to.y) {
+        return_bool = true
+      }
+    }
+
+  } else if (attacking = false) {
+    if (piece_to_check.color == "black") {
+      if (cordinates_to_check.y + 2 == spot_to_move_to && cordinates_to_check.x == spot_to_move_to.x && piece_to_check.first_turn) {
+        return_bool = true
+      } else if (cordinates_to_check.y + 1 == spot_to_move_to.y && cordinates_to_check.x == spot_to_move_to.x) {
+        return_bool = true
+      }
+    } else {
+      if (cordinates_to_check.y - 2 == spot_to_move_to.y && cordinates_to_check.x == spot_to_move_to.x){
+        return_bool = true
+      } else if (cordinates_to_check.y - 1 == spot_to_move_to.y && cordinates_to_check.x == spot_to_move_to.x) {
+        return_bool = true
+      }
     }
   }
-
-  return false
+  if (return_bool == true) {
+    console.log(cordinates_to_check, " ", return_bool, " ", spot_to_move_to)
+  }
+  return return_bool
 }
 
 function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
