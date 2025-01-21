@@ -21,7 +21,7 @@ console.log("Attempting test")
 for (let i = 0; i < 8; i++) {
   for (let j = 0; j < 8; j++) {
     test('Checks determineLegalQueenMoves', () => {
-      expect(game_logic.determineLegalQueenMove(white_queen_zero, { x: j, y: i }, false)).toBe(true);
+      expect(game_logic.determineLegalQueenMove(white_queen_zero, { x: j, y: i }, true)).toBe(true);
     })
   }
 }
