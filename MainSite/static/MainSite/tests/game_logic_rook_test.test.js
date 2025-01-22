@@ -11,12 +11,12 @@ let piece_to_test = {
   piece_count: 0,
   first_turn: true
 }
+game_logic.startGame(1, true)
 
 for (let i = 0; i < 8; i++) {
   for (let j = 0; j < 8; j++) {
-    game_logic.startGame(1, true)
     test('Checks determineLegalRookMove', () => {
-      expect(game_logic.determineLegalRookMove(piece_to_test, { x: j, y: i })).toBe(true);
+      expect(game_logic.determineLegalRookMove(piece_to_test, { x: j, y: i }, true)).toBe(true);
     })
   }
 }

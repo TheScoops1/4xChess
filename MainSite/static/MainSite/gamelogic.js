@@ -393,50 +393,47 @@ function determineLegalKnightMove(piece_to_check, spot_to_move_to) {
 
 function determineLegalRookMove(piece_to_check, spot_to_move_to, attacking) {
   let cordinates_to_check = { x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y }
-  if (piece_to_check.cordinates.x == spot_to_move_to.x) {
-    let cordinate_difference = Math.max(piece_to_check.cordinates.y, spot_to_move_to.y) - Math.min(piece_to_check.cordinates.y, spot_to_move_to.y)
-    for (let i = 0; i < cordinate_difference; i++) {
+  let return_bool = false
+  let cordinate_difference = 0
 
-      if (piece_to_check.cordinates.y < spot_to_move_to.y) {
-        cordinates_to_check.y = cordinates_to_check.y + 1
-      } else if (piece_to_check.cordinates.y > spot_to_move_to.y) {
-        cordinates_to_check.y = cordinates_to_check.y - 1
-      }
+  if (cordinates_to_check.x == spot_to_move_to.x) {
+    cordinate_difference = Math.max(piece_to_check.cordinates.y, spot_to_move_to.y) - Math.min(piece_to_check.cordinates.y, spot_to_move_to.y)
+  } else if (cordinates_to_check.y == spot_to_move_to.y) {
+    cordinate_difference = Math.max(piece_to_check.cordinates.x, spot_to_move_to.x) - Math.min(piece_to_check.cordinates.x, spot_to_move_to.x)
+  }
 
-      for (let j = 0; j < game_board.length; j++) {
-        if (game_board[j].piece != "" && cordinates_to_check == game_board.cordinates) {
-          return false
-        } else if (game_board[j].piece != "" && cordinates_to_check == game_board.cordinates && attacking == true) {
-          return true
-        } else if (game_board[j].piece != "" && spot_to_move_to == game_board.cordinates) {
-          return true
-        }
-      }
+  console.log(cordinate_difference, " ", spot_to_move_to)
+  for (let i = 0; i < cordinate_difference; i++) {
+    if (piece_to_check.cordinates.y == spot_to_move_to.y) {
+    } else if (piece_to_check.cordinates.y < spot_to_move_to.y) {
+      cordinates_to_check.y = cordinates_to_check.y + 1
+    } else if (piece_to_check.cordinates.y > spot_to_move_to.y) {
+      cordinates_to_check.y = cordinates_to_check.y - 1
+    }
+
+    if (piece_to_check.cordinates.x == spot_to_move_to.x){
+    } else if (piece_to_check.cordinates.x < spot_to_move_to.x) {
+      cordinates_to_check.x = cordinates_to_check.x + 1
+    } else if (piece_to_check.cordinates.x > spot_to_move_to.x) {
+      cordinates_to_check.x = cordinates_to_check.x - 1
+    }
+
+    console.log(cordinates_to_check, " ", game_board[cordinates_to_check.y][cordinates_to_check.x].piece)
+
+    if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece != "" && attacking == false) {
+      console.log("false on: ", cordinates_to_check)
+      return_bool = false
+    } else if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece != "" && attacking == true) {
+      console.log("true on: ", cordinates_to_check, " and attacking is true")
+      return_bool = true
+      attacking = false
+    } else if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece == "" && game_board[cordinates_to_check.y][cordinates_to_check.x].cordinates.x == spot_to_move_to.x && game_board[cordinates_to_check.y][cordinates_to_check.x].cordinates.y == spot_to_move_to.y){
+      console.log("true on: ", cordinates_to_check)
+      return_bool = true
     }
   }
 
-
-  if (piece_to_check.cordinates.y == spot_to_move_to.y) {
-    let cordinate_difference = Math.max(piece_to_check.cordinates.x, spot_to_move_to.x) - Math.min(piece_to_check.cordinates.x, spot_to_move_to.x)
-    for (let i = 0; i < cordinate_difference; i++) {
-
-      if (piece_to_check.cordinates.y < spot_to_move_to.y) {
-        cordinates_to_check.x = cordinates_to_check.x + 1
-      } else if (piece_to_check.cordinates.y > spot_to_move_to.y) {
-        cordinates_to_check.x = cordinates_to_check.x - 1
-      }
-
-      for (let j = 0; j < game_board.length; j++) {
-        if (game_board[j].piece != "" && cordinates_to_check == game_board.cordinates) {
-          return false
-        } else if (game_board[j].piece != "" && cordinates_to_check == game_board.cordinates && attacking == true) {
-          return true
-        } else if (game_board[j].piece != "" && spot_to_move_to == game_board.cordinates) {
-          return true
-        }
-      }
-    }
-  }
+  return return_bool
 }
 
 function determineLegalKingMove(piece_to_check, spot_to_move_to) {
