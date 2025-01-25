@@ -631,8 +631,6 @@ function whereToMove(spot_to_move_to, session_token) {
     let piece_to_move_HTML_element = document.getElementsByClassName(piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count)[0]
     let spot_to_move_to_HTML_element = document.getElementsByClassName(spot_to_move_to.class)[0]
 
-
-
     changeInvalidMoveHTML(true)
 
     if (piece_to_attack === null) {
@@ -665,6 +663,10 @@ function whereToMove(spot_to_move_to, session_token) {
     game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].cordinates.x = spot_to_move_to.x
     game_pieces[piece_to_move.color + " " + piece_to_move.piece + " " + piece_to_move.piece_count].cordinates.y = spot_to_move_to.y
 
+    game_board[y_spot_for_spot_moved_from][x_position_for_spot_moved_from].piece = ""
+    game_board[spot_to_move_to.y][spot_to_move_to.x].piece = piece_to_move.piece
+
+    console.log(game_board)
 
     piece_to_move = null
     piece_to_attack = null
