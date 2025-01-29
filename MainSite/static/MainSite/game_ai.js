@@ -33,6 +33,14 @@ function createParentNode(data) {
   data_tree[node.name] = node
 }
 
+function showTreeRow(binary) {
+
+  let list_to_return = [] < ScrollWheelUp >
+  for (i = 1; i < binary.length; i++) {
+
+  }
+}
+
 function addNodeToTree(data, parent_node, direction) {
 
   console.log("adding new node to the tree")
