@@ -237,16 +237,16 @@ function determineLegalMove(piece_to_check, spot_to_move_to, attacking) {
 
 function determineLegalPawnMove(piece_to_check, spot_to_move_to, attacking) {
   console.log("determining legal Pawn Move ", piece_to_check, " ", spot_to_move_to, " ", attacking)
-  let cordinates_to_check = {x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y}
+  let cordinates_to_check = { x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y }
   let return_bool = false
 
-  if (((cordinates_to_check.x + 1) === spot_to_move_to.x || (cordinates_to_check.x - 1) === spot_to_move_to.x) && attacking === true) {
-    if (piece_to_check.color === "black") {
-      if (cordinates_to_check.y + 1 === spot_to_move_to.y) {
+  if (((cordinates_to_check.y + 1) === spot_to_move_to.y || (cordinates_to_check.y - 1) === spot_to_move_to.y) && attacking === true) {
+    if (piece_to_check.color === "black" && (cordinates_to_check.y - 1) !== piece_to_check.cordinates.y) {
+      if (cordinates_to_check.x + 1 === spot_to_move_to.x || cordinates_to_check.x - 1 === spot_to_move_to.x) {
         return_bool = true
       }
-    } else {
-      if (cordinates_to_check.y - 1 === spot_to_move_to.y) {
+    } else if (piece_to_check.color === "white" && (cordinates_to_check.y + 1) !== piece_to_check.cordinates.y) {
+      if (cordinates_to_check.x + 1 === spot_to_move_to.x || cordinates_to_check.x - 1 === spot_to_move_to.x) {
         return_bool = true
       }
     }
@@ -261,7 +261,7 @@ function determineLegalPawnMove(piece_to_check, spot_to_move_to, attacking) {
         piece_to_check.first_turn = false
       }
     } else {
-      if (cordinates_to_check.y - 2 === spot_to_move_to.y && cordinates_to_check.x === spot_to_move_to.x && piece_to_check.first_turn === true){
+      if (cordinates_to_check.y - 2 === spot_to_move_to.y && cordinates_to_check.x === spot_to_move_to.x && piece_to_check.first_turn === true) {
         return_bool = true
         piece_to_check.first_turn = false
       } else if (cordinates_to_check.y - 1 === spot_to_move_to.y && cordinates_to_check.x === spot_to_move_to.x) {
@@ -278,11 +278,11 @@ function determineLegalPawnMove(piece_to_check, spot_to_move_to, attacking) {
 
 function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
   let return_bool = false
-  let cordinates_to_check = {x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y}
+  let cordinates_to_check = { x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y }
   let check_count = Number
 
-  if ((cordinates_to_check.x < spot_to_move_to.x && cordinates_to_check.y > spot_to_move_to.y) || (cordinates_to_check.x > spot_to_move_to.x && cordinates_to_check.y < spot_to_move_to.y)){
-    check_count = Math.max(cordinates_to_check.x, spot_to_move_to.x) - Math.min( cordinates_to_check.x, spot_to_move_to.x)
+  if ((cordinates_to_check.x < spot_to_move_to.x && cordinates_to_check.y > spot_to_move_to.y) || (cordinates_to_check.x > spot_to_move_to.x && cordinates_to_check.y < spot_to_move_to.y)) {
+    check_count = Math.max(cordinates_to_check.x, spot_to_move_to.x) - Math.min(cordinates_to_check.x, spot_to_move_to.x)
   } else {
     check_count = Math.max(spot_to_move_to.x, spot_to_move_to.y, piece_to_check.cordinates.x, piece_to_check.cordinates.y) - Math.min(spot_to_move_to.x, spot_to_move_to.y, piece_to_check.cordinates.x, piece_to_check.cordinates.y)
   }
@@ -294,7 +294,7 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
   if (spot_to_move_to.x === cordinates_to_check.x) {
     same_x_axis_check = true
   }
-  if (spot_to_move_to.y === cordinates_to_check.y){
+  if (spot_to_move_to.y === cordinates_to_check.y) {
     same_y_axis_check = true
   }
 
@@ -315,11 +315,11 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
       }
     }
 
-    if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece !== '' && spot_to_move_to.x === cordinates_to_check.x && spot_to_move_to.y === cordinates_to_check.y && attacking === false){
+    if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece !== '' && spot_to_move_to.x === cordinates_to_check.x && spot_to_move_to.y === cordinates_to_check.y && attacking === false) {
       console.log(game_board[cordinates_to_check.y][cordinates_to_check.x], " ", cordinates_to_check, " ", spot_to_move_to, " ", piece_to_check.cordinates, " ", check_count, " ", return_bool)
       console.log("returning false on possible piece")
       return false
-    } else if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece !== '' && spot_to_move_to.x === cordinates_to_check.x && spot_to_move_to.y === cordinates_to_check.y && attacking === true){
+    } else if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece !== '' && spot_to_move_to.x === cordinates_to_check.x && spot_to_move_to.y === cordinates_to_check.y && attacking === true) {
       console.log(game_board[cordinates_to_check.y][cordinates_to_check.x], " ", cordinates_to_check, " ", spot_to_move_to, " ", piece_to_check.cordinates, " ", check_count, " ", return_bool)
       console.log("attacking is true")
       attacking = false
@@ -333,8 +333,8 @@ function determineLegalQueenMove(piece_to_check, spot_to_move_to, attacking) {
       return_bool = true
     }
   }
-  if (spot_to_move_to.x === piece_to_check.cordinates.x && spot_to_move_to.y === piece_to_check.cordinates.y){
-      return false
+  if (spot_to_move_to.x === piece_to_check.cordinates.x && spot_to_move_to.y === piece_to_check.cordinates.y) {
+    return false
   } else {
     console.log(return_bool, " on ", cordinates_to_check)
     return return_bool
@@ -416,7 +416,7 @@ function determineLegalRookMove(piece_to_check, spot_to_move_to, attacking) {
       cordinates_to_check.y = cordinates_to_check.y - 1
     }
 
-    if (piece_to_check.cordinates.x === spot_to_move_to.x){
+    if (piece_to_check.cordinates.x === spot_to_move_to.x) {
     } else if (piece_to_check.cordinates.x < spot_to_move_to.x) {
       cordinates_to_check.x = cordinates_to_check.x + 1
     } else if (piece_to_check.cordinates.x > spot_to_move_to.x) {
@@ -432,7 +432,7 @@ function determineLegalRookMove(piece_to_check, spot_to_move_to, attacking) {
       console.log("true on: ", cordinates_to_check, " and attacking is true")
       return_bool = true
       attacking = false
-    } else if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece === "" && game_board[cordinates_to_check.y][cordinates_to_check.x].cordinates.x === spot_to_move_to.x && game_board[cordinates_to_check.y][cordinates_to_check.x].cordinates.y === spot_to_move_to.y){
+    } else if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece === "" && game_board[cordinates_to_check.y][cordinates_to_check.x].cordinates.x === spot_to_move_to.x && game_board[cordinates_to_check.y][cordinates_to_check.x].cordinates.y === spot_to_move_to.y) {
       console.log("true on: ", cordinates_to_check)
       return_bool = true
     }
@@ -455,34 +455,34 @@ function determineLegalKingMove(piece_to_check, spot_to_move_to) {
 }
 
 function determineLegalBishopMove(piece_to_check, spot_to_move_to, attacking) {
-  let cordinates_to_check = {x:piece_to_check.cordinates.x, y: piece_to_check.cordinates.y}
+  let cordinates_to_check = { x: piece_to_check.cordinates.x, y: piece_to_check.cordinates.y }
   let check_count = Number
   let return_bool = false
 
-  if ((cordinates_to_check.x < spot_to_move_to.x && cordinates_to_check.y > spot_to_move_to.y) || (cordinates_to_check.x > spot_to_move_to.x && cordinates_to_check.y < spot_to_move_to.y)){
-    check_count = Math.max(cordinates_to_check.x, spot_to_move_to.x) - Math.min( cordinates_to_check.x, spot_to_move_to.x)
+  if ((cordinates_to_check.x < spot_to_move_to.x && cordinates_to_check.y > spot_to_move_to.y) || (cordinates_to_check.x > spot_to_move_to.x && cordinates_to_check.y < spot_to_move_to.y)) {
+    check_count = Math.max(cordinates_to_check.x, spot_to_move_to.x) - Math.min(cordinates_to_check.x, spot_to_move_to.x)
   } else {
     check_count = Math.max(spot_to_move_to.x, spot_to_move_to.y, piece_to_check.cordinates.x, piece_to_check.cordinates.y) - Math.min(spot_to_move_to.x, spot_to_move_to.y, piece_to_check.cordinates.x, piece_to_check.cordinates.y)
   }
 
   for (let i = 0; i < check_count; i++) {
-      if (spot_to_move_to.x > piece_to_check.cordinates.x) {
-        cordinates_to_check.x = cordinates_to_check.x + 1
-      } else {
-        cordinates_to_check.x = cordinates_to_check.x - 1
-      }
+    if (spot_to_move_to.x > piece_to_check.cordinates.x) {
+      cordinates_to_check.x = cordinates_to_check.x + 1
+    } else {
+      cordinates_to_check.x = cordinates_to_check.x - 1
+    }
 
-      if (spot_to_move_to.y > piece_to_check.cordinates.y) {
-        cordinates_to_check.y = cordinates_to_check.y + 1
-      } else {
-        cordinates_to_check.y = cordinates_to_check.y - 1
-      }
+    if (spot_to_move_to.y > piece_to_check.cordinates.y) {
+      cordinates_to_check.y = cordinates_to_check.y + 1
+    } else {
+      cordinates_to_check.y = cordinates_to_check.y - 1
+    }
 
-    if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece !== '' && spot_to_move_to.x === cordinates_to_check.x && spot_to_move_to.y === cordinates_to_check.y && attacking === false){
+    if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece !== '' && spot_to_move_to.x === cordinates_to_check.x && spot_to_move_to.y === cordinates_to_check.y && attacking === false) {
       console.log(game_board[cordinates_to_check.y][cordinates_to_check.x], " ", cordinates_to_check, " ", spot_to_move_to, " ", piece_to_check.cordinates, " ", check_count, " ", return_bool)
       console.log("returning false on possible piece")
       return false
-    } else if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece !== '' && spot_to_move_to.x === cordinates_to_check.x && spot_to_move_to.y === cordinates_to_check.y && attacking === true){
+    } else if (game_board[cordinates_to_check.y][cordinates_to_check.x].piece !== '' && spot_to_move_to.x === cordinates_to_check.x && spot_to_move_to.y === cordinates_to_check.y && attacking === true) {
       console.log(game_board[cordinates_to_check.y][cordinates_to_check.x], " ", cordinates_to_check, " ", spot_to_move_to, " ", piece_to_check.cordinates, " ", check_count, " ", return_bool)
       console.log("attacking is true")
       attacking = false
@@ -498,8 +498,8 @@ function determineLegalBishopMove(piece_to_check, spot_to_move_to, attacking) {
 
   }
 
-  if (spot_to_move_to.x === piece_to_check.cordinates.x || spot_to_move_to.y === piece_to_check.cordinates.y){
-      return false
+  if (spot_to_move_to.x === piece_to_check.cordinates.x || spot_to_move_to.y === piece_to_check.cordinates.y) {
+    return false
   } else {
     console.log(return_bool, " on ", cordinates_to_check)
     return return_bool
@@ -610,7 +610,7 @@ function pieceToMove(name_of_piece, session_token) {
     piece_to_move = game_pieces[name_of_piece]
   } else {
     piece_to_attack = game_pieces[name_of_piece]
-    whereToMove({ class: "column_" + piece_to_attack.position.x + " row_" + piece_to_attack.position.y }, session_token)
+    whereToMove({ class: "column_" + piece_to_attack.cordinates.x + " row_" + piece_to_attack.cordinates.y }, session_token)
   }
 }
 
@@ -705,9 +705,9 @@ function changeInvalidMoveHTML(invalidBoolean) {
   invalidMoveElement = document.getElementsByClassName("invlaidMoveDisplay")[0]
 
   if (invalidBoolean === true) {
-    invalidMoveElement.innerText =  ""
+    invalidMoveElement.innerText = ""
   } else if (invalidBoolean === false) {
-      invalidMoveElement.innerText =  "Invliad Move, Please pick a valid move"
+    invalidMoveElement.innerText = "Invliad Move, Please pick a valid move"
   }
 
 }
