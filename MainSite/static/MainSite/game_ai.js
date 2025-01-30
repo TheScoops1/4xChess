@@ -35,7 +35,7 @@ function createParentNode(data) {
 
 function showTreeRow(binary) {
 
-  let list_to_return = [] < ScrollWheelUp >
+  let list_to_return = []
   for (i = 1; i < binary.length; i++) {
 
   }
@@ -59,7 +59,7 @@ function accessAboveDataNode(binary, size) {
 }
 
 function accessDirectlyBelowDataNodes(binary) {
-  return data_tree(String(binary + 1)), data_tree(String(binary + 0))
+  return data_tree[String(binary + 1)], data_tree[String(binary + 0)]
 }
 
 function accessMultipleBelowDataNodes(binary, directions) {
