@@ -241,11 +241,11 @@ function determineLegalPawnMove(piece_to_check, spot_to_move_to, attacking) {
   let return_bool = false
 
   if ((((cordinates_to_check.y + 1) === spot_to_move_to.y || (cordinates_to_check.y - 1) === spot_to_move_to.y)) && attacking === true) {
-    if (piece_to_check.color === "black" && (spot_to_move_to.y - 1) !== piece_to_check.cordinates.y) {
+    if (piece_to_check.color === "black" && (cordinates_to_check.y + 1) === spot_to_move_to.y) {
       if (cordinates_to_check.x + 1 === spot_to_move_to.x || cordinates_to_check.x - 1 === spot_to_move_to.x) {
         return_bool = true
       }
-    } else if (piece_to_check.color === "white" && (spot_to_move_to.y + 1) !== piece_to_check.cordinates.y) {
+    } else if (piece_to_check.color === "white" && (cordinates_to_check.y + 1) === spot_to_move_to.y) {
       if (cordinates_to_check.x + 1 === spot_to_move_to.x || cordinates_to_check.x - 1 === spot_to_move_to.x) {
         return_bool = true
       }
@@ -610,15 +610,13 @@ function pieceToMove(name_of_piece, session_token) {
     piece_to_move = game_pieces[name_of_piece]
   } else {
     piece_to_attack = game_pieces[name_of_piece]
-    whereToMove({ class: "column_" + piece_to_attack.cordinates.x + " row_" + piece_to_attack.cordinates.y }, session_token)
+    whereToMove({ class: "column_" + piece_to_attack.cordinates.x + " row_" + piece_to_attack.cordinates.y, x: piece_to_attack.cordinates.x, y: piece_to_attack.cordinates.y }, session_token)
   }
 }
 
 function whereToMove(spot_to_move_to, session_token) {
 
   let attacking = false
-
-  console.log(attacking)
 
   if (piece_to_attack !== null) {
     attacking = true
